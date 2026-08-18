@@ -1,0 +1,3572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>document.documentElement.classList.add('js-on');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="曾伟的世界 - 2026准大一新生，应用泰语 × AI工具流玩家的个人网站">
+<meta name="theme-color" content="#F6F3EB">
+<title>曾伟的世界</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23FFDE59' stroke='%23161513' stroke-width='6'/><text x='50' y='70' font-size='54' font-weight='900' text-anchor='middle' fill='%23161513' font-family='sans-serif'>曾</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+<style>
+/* ==================== 变量与基础 ==================== */
+:root {
+  --paper: #f4f4f0;
+  --card: #ffffff;
+  --ink: #000000;
+  --ink-soft: #333333;
+  --bd: 2px solid #000;
+  --accent: #4169E1;
+  --title-grad: linear-gradient(135deg, #4169E1 0%, #FF69B4 100%);
+  --card-shadow: 4px 4px 0 #000;
+  --card-shadow-lg: 5px 5px 0 #000;
+  --card-shadow-sm: 2px 2px 0 #000;
+  --blue: #4169E1;
+  --blue-soft: #d8e2ff;
+  --yellow: #FFD700;
+  --yellow-soft: #fff5b8;
+  --magenta: #FF69B4;
+  --pink-soft: #ffd6ea;
+  --green: #00E676;
+  --green-d: #00c853;
+  --green-soft: #ccffea;
+  --purple: #9b59b6;
+  --purple-soft: #ead6f5;
+  --orange: #ff8c00;
+  --r: 14px;
+  --font: Impact, "Arial Black", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; transition: background-color .3s ease, color .3s ease, border-color .3s ease, box-shadow .3s ease, backdrop-filter .3s ease; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+body {
+  font-family: var(--font);
+  background: var(--paper);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1.2px, transparent 1.2px);
+  background-size: 26px 26px;
+  color: var(--ink);
+  line-height: 1.75;
+  font-size: 15.5px;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--yellow); }
+a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+button { font-family: inherit; cursor: pointer; background: none; border: none; color: inherit; -webkit-tap-highlight-color: transparent; }
+svg { display: block; }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+/* ==================== 通用组件 ==================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: var(--bd);
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-weight: 800;
+  font-size: 14px;
+  background: var(--card);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+}
+.btn:hover { transform: translate(-2px, -2px); box-shadow: var(--card-shadow-lg); }
+.btn:active { transform: translate(2px, 2px); box-shadow: var(--card-shadow-sm); }
+.btn svg { width: 17px; height: 17px; }
+.btn-blue { background: var(--blue); color: #fff; }
+.btn-yellow { background: var(--yellow); color: #161513; }
+.btn-green { background: var(--green); color: #161513; }
+
+/* 高亮色块标题 */
+.hl {
+  display: inline-block;
+  border: var(--bd);
+  padding: 0 12px;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  line-height: 1.35;
+}
+.hl-blue { background: var(--blue); color: #fff; }
+.hl-pink { background: var(--magenta); color: #fff; }
+.hl-yellow { background: var(--yellow); color: #161513; }
+.hl-purple { background: var(--purple); color: #161513; }
+
+/* 主标题：宝蓝背景 + 白色粗体 + 黑边框；悬停变亮黄底黑字 */
+.hero h1 .hl-blue {
+  background: #2563EB;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  padding: 0 0.18em;
+  border: var(--bd);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  font-weight: 900;
+  transition: all 0.3s ease;
+}
+.hero h1 .hl-blue:hover {
+  background: #A855F7;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  background-image: none;
+  animation: none;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+/* 荧光笔划线 */
+.mk { background: linear-gradient(transparent 60%, var(--yellow) 60%); font-weight: 700; padding: 0 2px; }
+.mk-b { background: linear-gradient(transparent 60%, var(--blue-soft) 60%); font-weight: 700; padding: 0 2px; }
+.mk-p { background: linear-gradient(transparent 60%, var(--pink-soft) 60%); font-weight: 700; padding: 0 2px; }
+
+/* 分区标题 */
+.sec-head { margin: 0 0 18px; text-align: center; }
+.sec-head .en {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  border: 2.5px solid var(--ink);
+  background: var(--card);
+  padding: 3px 12px;
+  border-radius: 6px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 14px;
+}
+.sec-head h2 { font-size: clamp(1.7rem, 5vw, 2.5rem); font-weight: 900; line-height: 1.3; }
+/* ② 地球 Online 大标题：悬停像素风色彩闪烁（0.5s 一轮，硬切） */
+.sec-head h2.flicker { cursor: pointer; }
+.sec-head h2.flicker:hover { animation: titleFlicker 0.5s step-end infinite; }
+.sec-head h2.flicker:hover .hl { animation: chipFlicker 0.5s step-end infinite; color: #fff; }
+@keyframes titleFlicker {
+  0%, 100% { color: var(--ink); }
+  25% { color: var(--magenta); }
+  50% { color: var(--blue); }
+  75% { color: var(--green); }
+}
+@keyframes chipFlicker {
+  0%, 100% { background: var(--magenta); }
+  25% { background: var(--blue); }
+  50% { background: var(--green); }
+  75% { background: var(--orange); }
+}
+.sec-sub { margin-top: 10px; font-weight: 600; color: var(--ink-soft); font-size: 14.5px; }
+
+/* 星星装饰 */
+.sparkle { position: absolute; pointer-events: none; z-index: 1; animation: twinkle 2.6s ease-in-out infinite; }
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.95; }
+  50% { transform: scale(1.3) rotate(18deg); opacity: 0.45; }
+}
+
+/* 滚动显现（JS 就绪后才隐藏，脚本失效时内容默认可见） */
+html.js-on .rv { opacity: 0; transform: translateY(18px); }
+html.js-on .rv.on { opacity: 1; transform: none; transition: opacity 0.45s cubic-bezier(0.3, 1.1, 0.4, 1), transform 0.45s cubic-bezier(0.3, 1.1, 0.4, 1); }
+
+/* ==================== 滚动渐显 .reveal（区块级，独立于 .rv） ==================== */
+html.js-on .reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+html.js-on .reveal.active { opacity: 1; transform: translateY(0); }
+.reveal { will-change: opacity, transform; }
+@media (prefers-reduced-motion: reduce) {
+  html.js-on .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ==================== 导航（胶囊） ==================== */
+.nav-container {
+  position: fixed;
+  top: 14px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;             /* 居中：不依赖 transform，把 transform 留给震动动画 */
+  width: fit-content;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 3px solid #000;     /* 粗黑边框，与网站卡片一致 */
+  border-radius: 50px;        /* 圆角药丸形容器 */
+  min-width: 500px;           /* 拉长药丸，视觉上更长 */
+  padding: 6px 10px;
+  box-shadow: 4px 4px 0 #000; /* 硬投影，新波普风 */
+  box-sizing: border-box;
+}
+/* 点击任意导航项 → 整个药丸容器 Q 弹微震（柔和 scale + translate，模拟果冻感） */
+.nav-container.shaking { animation: soft-shake 0.4s ease-in-out; }
+@keyframes soft-shake {
+  0%   { transform: scale(1); }
+  25%  { transform: scale(0.98) translateX(-2px); }
+  50%  { transform: scale(1.02) translateX(2px); }
+  75%  { transform: scale(0.99) translateX(-1px); }
+  100% { transform: scale(1) translateX(0); }
+}
+.nav-container .nav-btn {
+  padding: 9px 22px;
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  border: 2px solid transparent;  /* 透明占位边框，激活态加黑边时不抖动 */
+  border-radius: 20px;            /* 与“复制邮箱”按钮一致的胶囊圆角 */
+  color: #000;
+  background: transparent;        /* 非激活：透明背景，不抢风头 */
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+/* 悬停与激活统一：每个按钮的 :hover 与 .active 写在同一个规则块里共用同一套主题色，
+   点击切换页面后 .active 自动移到对应按钮，因与 :hover 共享样式，视觉不会消失 */
+/* 首页 - 蓝色 */
+.nav-container .nav-item:nth-child(1):hover,
+.nav-container .nav-item:nth-child(1).active {
+  border: 3px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  box-shadow: 2px 2px 0 #3b82f6;
+  color: #3b82f6;
+  font-weight: 900;
+}
+/* 关于我 - 橙色 */
+.nav-container .nav-item:nth-child(2):hover,
+.nav-container .nav-item:nth-child(2).active {
+  border: 3px solid #f97316;
+  background: rgba(249, 115, 22, 0.1);
+  box-shadow: 2px 2px 0 #f97316;
+  color: #f97316;
+  font-weight: 900;
+}
+/* AI - 绿色 */
+.nav-container .nav-item:nth-child(3):hover,
+.nav-container .nav-item:nth-child(3).active {
+  border: 3px solid #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  box-shadow: 2px 2px 0 #22c55e;
+  color: #22c55e;
+  font-weight: 900;
+}
+/* PPT - 紫色 */
+.nav-container .nav-item:nth-child(4):hover,
+.nav-container .nav-item:nth-child(4).active {
+  border: 3px solid #a855f7;
+  background: rgba(168, 85, 247, 0.1);
+  box-shadow: 2px 2px 0 #a855f7;
+  color: #a855f7;
+  font-weight: 900;
+}
+/* 经历 - 红色 */
+.nav-container .nav-item:nth-child(5):hover,
+.nav-container .nav-item:nth-child(5).active {
+  border: 3px solid #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  box-shadow: 2px 2px 0 #ef4444;
+  color: #ef4444;
+  font-weight: 900;
+}
+
+.nav-container .emoji-btn {
+  width: 40px; height: 40px;   /* 正圆形：宽高相等 */
+  flex-shrink: 0;              /* 不被 flex 挤压变形 */
+  border-radius: 50%;
+  border: 2.5px solid #000;
+  background: #f472b6;         /* 粉色，与 ID 卡笑脸一致 */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 0 #000;  /* 与其它控件一致的硬影 */
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.nav-container .emoji-btn:hover { filter: brightness(1.08); transform: rotate(-8deg); }
+.nav-container .emoji-btn:active { transform: scale(0.94); }
+.nav-container .emoji-btn svg { width: 24px; height: 24px; }
+
+/* ==================== 页面切换 ==================== */
+main {
+  padding-top: 96px;
+  padding-bottom: 36px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+.page { display: none; }
+.page.active { display: block; position: relative; margin: auto 0; padding-top: 6px; scroll-margin-top: 96px; animation: pageIn 0.4s cubic-bezier(0.3, 1.1, 0.4, 1); }
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ==================== 首页 Hero ==================== */
+.hero {
+  display: flex;
+  align-items: stretch;
+  gap: 56px;
+  padding: 16px 0 12px;
+  position: relative;
+}
+/* 左侧文字容器：随父级 flex 拉伸到与右侧 ID 卡等高，内容垂直居中 */
+.hero-text {
+  flex: 1.05 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.idcard-wrap {
+  flex: 0.95 1 0;
+  min-width: 0;
+}
+.hero .welcome { font-family: 'Arial Black', 'Impact', 'Microsoft YaHei', sans-serif; font-weight: 800; font-size: clamp(1.6rem, 3.6vw, 2.4rem); margin-bottom: 10px; color: #000; letter-spacing: 1px; word-spacing: 4px; transition: all 0.3s ease; cursor: pointer; }
+.hero .welcome:hover { color: #4169E1; transform: scale(1.1) rotate(-5deg); }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); font-weight: 900; line-height: 1.2; letter-spacing: -0.01em; }
+.hero p { margin: 16px 0 0; font-size: clamp(15px, 1.6vw, 17px); line-height: 1.85; max-width: 600px; }
+
+/* 标语 + 无穷符号（两行排版，∞ 作为视觉焦点放大） */
+.hero .hero-slogan {
+  font-size: clamp(1.4rem, 4.2vw, 2.1rem);
+  font-weight: 900;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 18px 0 0;
+  line-height: 1.18;
+}
+.hero-slogan .sl-line { display: block; }
+.inf {
+  display: inline-block;
+  font-size: 1.9em;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--magenta) 55%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(2.5px 2.5px 0 var(--ink));
+  animation: infFloat 2.8s ease-in-out infinite;
+  margin-right: 8px;
+}
+@keyframes infFloat {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-5px) rotate(7deg); }
+}
+.hero-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.hero-btns .btn {
+  border-radius: 999px;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  font-weight: 900;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.hero-btns .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
+.hero-btns .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+.hero-btns .btn:nth-child(1) { background: var(--yellow); color: #000; }
+.hero-btns .btn:nth-child(2) { background: var(--magenta); color: #fff; }
+.hero-btns .btn:nth-child(3) { background: var(--blue); color: #fff; }
+
+/* ==================== ID 卡 ==================== */
+.idcard-wrap { position: relative; }
+.pink-badge {
+  position: absolute;
+  top: -24px;
+  right: -12px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--magenta);
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(10deg);
+  z-index: 3;
+  animation: bob 3s ease-in-out infinite;
+}
+@keyframes bob { 0%,100% { transform: rotate(10deg) translateY(0); } 50% { transform: rotate(10deg) translateY(-6px); } }
+.pink-badge svg { width: 32px; height: 32px; }
+
+.idcard {
+  background: var(--card);
+  border: 3px solid #000;
+  border-radius: 14px;
+  box-shadow: var(--card-shadow-lg);
+  transform: rotate(2deg);
+  transition: transform 0.2s;
+  position: relative;
+  z-index: 2;
+  font-family: 'Arial Black', 'Impact', 'Microsoft YaHei', sans-serif;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.idcard:hover { transform: rotate(0deg); }
+
+.idcard-head {
+  background: #90EE90;
+  padding: 10px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 3px solid #000;
+}
+.idcard-head b { font-size: 20px; font-weight: 900; letter-spacing: 2px; color: #000; }
+.idcard-head span { font-size: 10.5px; font-weight: 900; letter-spacing: 1px; color: #000; }
+
+.idcard-body { display: flex; gap: 20px; padding: 20px; }
+.avatar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.avatar-box {
+  width: 140px;
+  height: 140px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-sizing: border-box;
+}
+.avatar-box svg { width: 100%; height: 100%; }
+.avatar-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar-cap {
+  margin: 0;
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: normal;
+  color: #555;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+}
+.mini-field {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #000;
+  padding: 3px 8px;
+  font-weight: 900;
+  color: #000;
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mf-blue { background: #FDE047; }   /* 2007.11：奶油黄，呼应 NAME */
+.mf-green { background: #86EFAC; }  /* 广西：薄荷绿，呼应 STATUS */
+
+.idcard-fields { flex: 1; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.field label { display: block; font-size: 10px; font-weight: 900; letter-spacing: 1px; opacity: 0.5; margin-bottom: 8px; }
+.field div {
+  border: 2px solid #000;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #000;
+  padding: 4px 14px;
+  font-weight: 900;
+  font-size: 16.5px;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.f-yellow { background: #FDE047; }  /* NAME 曾伟：奶油黄 */
+.f-blue { background: #7DD3FC; }    /* MAJOR 应用泰语：清爽天空蓝 */
+.f-purple { background: #86EFAC; }  /* STATUS 南宁职大：薄荷绿 */
+.f-goose { background: #FFF9D6; }  /* 应用泰语：极淡鹅黄（备用） */
+/* 信息块悬停：颜色加深一级，模拟"受光/按压"反馈 */
+.f-yellow:hover, .mf-blue:hover { background: #FACC15; }  /* 奶油黄 → 深黄 */
+.f-blue:hover { background: #38BDF8; }                     /* 天空蓝 → 蓝 */
+.f-purple:hover, .mf-green:hover { background: #4ADE80; } /* 薄荷绿 → 翠绿 */
+
+.idcard-foot {
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.idcard-divider {
+  border: none;
+  border-top: 2px solid #000;
+  margin: 0;
+  height: 0;
+  width: 100%;
+}
+.id-no { font-size: 11.5px; font-weight: 800; letter-spacing: 1.2px; }
+.barcode-box { border: none; border-radius: 6px; background: #fff; padding: 3px 6px; }
+.barcode-box svg { width: 128px; height: 30px; }
+.badge-row { display: flex; gap: 8px; }
+.mini-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 900;
+  box-shadow: 3px 3px 0 #000;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+.mini-badge:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 #000;
+  filter: brightness(1.08);
+}
+.mini-badge:active {
+  transform: translate(0, 0);
+  box-shadow: none;
+  filter: none;
+}
+.mb-pink { background: var(--pink-soft); }
+.mb-green { background: var(--green-soft); }
+
+/* ==================== Hero 打字机 / 标题互动 ==================== */
+.hero-reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.hero-reveal.is-in { opacity: 1; transform: none; }
+
+/* 标题：悬停彩虹流动 */
+@keyframes rainbowFlow { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+.hl-blue:hover {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, #ff5d5d, #ffd24d, #6dff6d, #5bd0ff, #b08bff, #ff5d5d);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: rainbowFlow 3s linear infinite;
+}
+@keyframes titleBounce {
+  0% { transform: translateY(0) scale(1); }
+  28% { transform: translateY(-20px) scale(1.07); }
+  50% { transform: translateY(0) scale(0.97); }
+  70% { transform: translateY(-9px) scale(1.03); }
+  100% { transform: translateY(0) scale(1); }
+}
+.hl-blue.bounce { animation: titleBounce 0.62s cubic-bezier(.28,.84,.42,1); }
+
+/* ==================== ID 卡：字段闪烁 + 3D 翻面 ==================== */
+.field div, .mini-field { cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.field div:hover, .mini-field:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #000; }
+.field div:active, .mini-field:active { transform: translate(0, 0); box-shadow: 0px 0px 0px #000; }
+@keyframes fieldFlash {
+  0% { filter: brightness(1); }
+  35% { filter: brightness(1.32); }
+  100% { filter: brightness(1); }
+}
+
+.idcard { perspective: 1200px; user-select: none; cursor: pointer; }
+.idcard-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.3, 1.2);
+}
+.idcard.flipped .idcard-inner { transform: rotateY(180deg); }
+.idcard-front, .idcard-back {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 14px;
+  background: var(--card);
+}
+.idcard-front { position: relative; overflow: hidden; }
+.idcard-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  overflow: auto;
+  pointer-events: auto;            /* 背面恒可交互，确保翻面后能接收双击 */
+}
+/* 翻面后：隐藏的正面不再参与命中测试，避免遮挡背面导致双击无法翻回 */
+.idcard.flipped .idcard-front { pointer-events: none; }
+.idcard-back-head {
+  font-size: 11px; font-weight: 900; letter-spacing: 2px;
+  opacity: 0.6; padding-bottom: 8px;
+}
+.back-label { font-size: 10px; font-weight: 900; letter-spacing: 2px; opacity: 0.55; margin-bottom: 6px; }
+.back-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.bt {
+  font-size: 12px; font-weight: 900; padding: 3px 11px;
+  border: 2.5px solid var(--ink); border-radius: 20px;
+  box-shadow: var(--card-shadow-sm);
+  cursor: pointer; user-select: none;
+  transition: transform 0.12s steps(2, jump-none), box-shadow 0.12s, filter 0.12s, background 0.12s, color 0.12s;
+}
+.bt-blue { background: var(--blue-soft); }
+.bt-green { background: var(--green-soft); }
+.bt-pink { background: var(--pink-soft); }
+/* 悬浮：放大 + 像素硬边光晕（描边不发虚，贴合复古风） */
+.bt:hover {
+  transform: scale(1.12);
+  filter: brightness(1.08);
+  box-shadow: var(--card-shadow), 0 0 0 3px var(--yellow);
+}
+/* 点击选中：填充反色 + 黄/品红闪烁硬边，像被“点亮”的像素块；再次点击取消 */
+.bt.bt-active {
+  background: var(--ink);
+  color: var(--paper);
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3px var(--yellow), var(--card-shadow);
+  animation: btBlink 1s steps(2, jump-none) infinite;
+}
+@keyframes btBlink {
+  0%, 100% { box-shadow: 0 0 0 3px var(--yellow), var(--card-shadow); }
+  50% { box-shadow: 0 0 0 3px var(--magenta), var(--card-shadow); }
+}
+.bt-purple { background: var(--purple-soft); }
+.back-quote { margin-top: auto; font-size: 15px; font-weight: 900; text-align: center; padding-top: 6px; }
+.back-tip { text-align: center; font-size: 11px; font-weight: 800; opacity: 0.55; }
+.flip-hint {
+  position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; font-weight: 900; letter-spacing: 1px; color: var(--ink-soft);
+  background: var(--card); border: 2px solid var(--ink); border-radius: 20px;
+  padding: 2px 12px; box-shadow: var(--card-shadow-sm); pointer-events: none; white-space: nowrap;
+}
+
+/* ==================== 关于我 ==================== */
+.statement {
+  position: relative;
+  background: var(--yellow);
+  border: var(--bd);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow-lg);
+  padding: 22px 22px 20px;
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+  color: #161513;
+}
+.st-tag {
+  position: absolute;
+  top: -15px;
+  left: 22px;
+  background: var(--card);
+  border: 2.5px solid var(--ink);
+  border-radius: 6px;
+  padding: 2px 12px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  box-shadow: var(--card-shadow);
+}
+.statement h3 { font-size: clamp(1.25rem, 3.6vw, 1.9rem); font-weight: 900; line-height: 1.5; }
+.statement p { margin-top: 12px; font-size: 14px; font-weight: 600; }
+/* ① 黄色语录卡片：悬停轻微上浮 + 阴影 */
+.statement { transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: default; }
+.statement:hover { transform: translateY(-5px); box-shadow: var(--card-shadow-lg); }
+
+/* ===== 关于我 · 标题"我"：悬浮抖动 / 点击弹跳 ===== */
+.sec-head h2 .hl-yellow { transition: transform 0.18s ease; }
+.sec-head h2 .hl-yellow:hover { animation: meWobble 0.5s steps(2, jump-none) infinite; }
+.sec-head h2 .hl-yellow.pop { animation: mePop 0.6s steps(3, jump-none); }
+@keyframes meWobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-9deg); }
+  50% { transform: rotate(9deg); }
+  75% { transform: rotate(-5deg); }
+}
+@keyframes mePop {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.45) rotate(8deg); }
+  60% { transform: scale(0.9) rotate(-8deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ===== 黄色语录卡片：点击文字闪烁变色 ===== */
+.statement.flash h3,
+.statement.flash p { animation: stmtFlash 0.55s steps(2, jump-none); }
+@keyframes stmtFlash {
+  0%, 100% { color: var(--ink); text-shadow: none; }
+  25% { color: var(--magenta); text-shadow: 2px 2px 0 var(--ink); }
+  50% { color: var(--green-d); text-shadow: -2px 2px 0 var(--ink); }
+  75% { color: var(--blue); text-shadow: 2px -2px 0 var(--ink); }
+}
+
+/* ===== 自我介绍：打字机光标 ===== */
+.px-about.typing::after {
+  content: '▋';
+  color: var(--magenta);
+  margin-left: 1px;
+  animation: caretBlink 0.7s steps(2, jump-none) infinite;
+}
+@keyframes caretBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ==================== 关于我 · 大白框 ==================== */
+.about-frame {
+  position: relative;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  padding: 22px 24px;
+  margin-top: 6px;
+  background: #FFFFFF;
+}
+
+/* ==================== 关于我 · 像素风个人档案 ==================== */
+.px-block { margin-top: 18px; display: flex; flex-direction: column; gap: 16px; }
+.px-card {
+  border: var(--bd);
+  background: var(--card);
+  box-shadow: var(--card-shadow-lg);   /* 硬阴影，像素/粗野风 */
+  padding: 14px 16px 16px;
+}
+.px-title {
+  display: inline-block;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: #000;
+  border: 2px solid #000;
+  padding: 7px 9px;
+  margin: -2px 0 12px;
+}
+
+/* —— 关于我 自我介绍（居中，适配卡片字号/行距） —— */
+.px-about {
+  text-align: center;
+  font-size: clamp(0.95rem, 2.6vw, 1.12rem);
+  font-weight: 700;
+  line-height: 1.95;
+  color: var(--ink);
+  padding: 2px 6px 4px;
+  letter-spacing: 0.3px;
+}
+
+/* —— MBTI 游戏属性面板 —— */
+.px-mbti .mbti-main { display: flex; align-items: baseline; gap: 12px; }
+.mbti-type {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: var(--ink);
+}
+.mbti-en { font-weight: 900; font-size: 12px; color: var(--ink-soft); }
+.mbti-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+.mbti-stat {
+  --accent: var(--ink);
+  --fill: 70%;
+  display: flex; flex-direction: column; gap: 6px;
+  border: var(--bd); background: var(--card);
+  box-shadow: var(--card-shadow);
+  padding: 10px 12px 30px;
+  cursor: default; position: relative;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+/* 关闭之前 3D 翻转，改为横向进度条 */
+.mbti-stat .mbti-inner { transform: none !important; transform-style: flat !important; min-height: 0 !important; }
+.mbti-stat .mbti-face { position: static !important; backface-visibility: visible !important; display: block !important; }
+.mbti-stat .mbti-back { display: none !important; }
+.mbti-stat .mbti-front { display: flex; align-items: baseline; gap: 6px; }
+.mbti-stat .mbti-front b { font-family: 'Press Start 2P', monospace; font-size: 15px; }
+.mbti-stat .mbti-front small { font-size: 11px; font-weight: 800; color: var(--ink-soft); }
+/* 进度条：轨道 + 填充（像素/复古风） */
+.mbti-stat::after {
+  content: ''; position: absolute; left: 12px; right: 12px; bottom: 10px; height: 16px;
+  border: 2.5px solid var(--ink); background: #fff; box-shadow: 2px 2px 0 rgba(0,0,0,0.12);
+}
+.mbti-stat::before {
+  content: ''; position: absolute; left: 14.5px; bottom: 12.5px; height: 11px;
+  width: calc(var(--fill) - 6px);
+  background-color: var(--accent);
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.28) 0 5px, transparent 5px 10px);
+  border-right: 2.5px solid var(--ink);
+}
+/* 悬停：放大 + 高亮（沿用维度配色） */
+.mbti-stat:hover { transform: translateY(-3px) scale(1.04); box-shadow: var(--card-shadow-lg); border-color: var(--accent); }
+/* 四个维度：配色 + 占比 */
+.mbti-stat:nth-child(1) { --accent: var(--blue);     --fill: 72%; }
+.mbti-stat:nth-child(2) { --accent: var(--green-d);  --fill: 85%; }
+.mbti-stat:nth-child(3) { --accent: var(--magenta);  --fill: 68%; }
+.mbti-stat:nth-child(4) { --accent: var(--orange);   --fill: 90%; }
+
+
+.recent-tag {
+  display: inline-block;
+  background: var(--magenta);
+  color: #fff;
+  border: var(--bd);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 8px 20px;
+  font-weight: 900;
+  font-size: clamp(1rem, 2.8vw, 1.3rem);
+  transform: rotate(-1.5deg);
+}
+.recent-head { text-align: center; margin: 64px 0 34px; }
+
+.recent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; position: relative; }
+.recent-grid::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  border-top: 3px dashed rgba(22, 21, 19, 0.3);
+  z-index: 0;
+}
+.recent-card {
+  background: var(--card);
+  border: var(--bd);
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.recent-card:hover { transform: translate(-3px, -3px) rotate(-0.5deg); }
+.rc-blue { box-shadow: 6px 6px 0 var(--blue); }
+.rc-pink { box-shadow: 6px 6px 0 var(--magenta); }
+.rc-green { box-shadow: 6px 6px 0 var(--green-d); }
+
+.icon-box {
+  width: 44px;
+  height: 44px;
+  border: 2.5px solid var(--ink);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: #fff;
+}
+.icon-box svg { width: 22px; height: 22px; }
+.ib-blue { background: var(--blue); }
+.ib-pink { background: var(--magenta); }
+.ib-green { background: var(--green-d); }
+.ib-purple { background: var(--purple); }
+.ib-yellow { background: var(--yellow); color: var(--ink); }
+
+.recent-card h4 { font-size: 16px; font-weight: 900; margin-bottom: 6px; }
+.recent-card p { font-size: 13.5px; color: var(--ink-soft); }
+
+.chip-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 22px; }
+.chip {
+  border: 2.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-weight: 800;
+  font-size: 13px;
+  background: var(--card);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.15s;
+}
+.chip:hover { transform: translateY(-2px); }
+.chip b { opacity: 0.5; margin-right: 6px; font-size: 10.5px; letter-spacing: 1.5px; }
+.chip.c-blue { background: var(--blue-soft); }
+.chip.c-yellow { background: var(--yellow-soft); }
+.chip.c-pink { background: var(--pink-soft); }
+.chip.c-green { background: var(--green-soft); }
+.chip.c-purple { background: var(--purple-soft); }
+
+/* ==================== AI 页 ==================== */
+.proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+.proj-card {
+  background: var(--card);
+  border: var(--bd);
+  border-radius: 16px;
+  padding: 22px;
+  position: relative;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.proj-card:hover { transform: translate(-3px, -3px); }
+.pj-blue { box-shadow: 7px 7px 0 var(--blue); }
+.pj-pink { box-shadow: 7px 7px 0 var(--magenta); }
+.pj-green { box-shadow: 7px 7px 0 var(--green-d); }
+.pj-yellow { box-shadow: 7px 7px 0 var(--orange); }
+/* 所有项目卡片 hover：统一轻微上浮，阴影颜色与大小均保持不变（不再强制变绿） */
+.proj-card[data-link] { cursor: pointer; transition: transform 0.15s; }
+.proj-card[data-link]:hover { transform: translate(-3px, -3px); }
+/* 外部链接小图标 ↗ */
+.ext-link {
+  color: var(--green-d);
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1;
+  margin-left: 5px;
+  transition: transform 0.2s ease;
+}
+.proj-card[data-link]:hover .ext-link { transform: translate(2px, -2px); }
+.proj-card[data-link]:focus-visible { outline: 3px solid var(--green-d); outline-offset: 3px; }
+
+.proj-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.proj-head h3 { font-size: 18px; font-weight: 900; }
+.proj-status {
+  margin-left: auto;
+  font-size: 10.5px;
+  font-weight: 900;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 2px 9px;
+  box-shadow: var(--card-shadow-sm);
+  white-space: nowrap;
+}
+.st-live { background: var(--yellow); }
+.st-play { background: var(--green); }
+.st-wip { background: var(--pink-soft); }
+/* 「能玩」按钮（飞机大战 / 坦克大战 统一）：可点击外链，Neo-Brutalism 悬停反馈 */
+.proj-play-link {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.proj-play-link .proj-status { margin-left: 0; }
+.proj-play-link:hover { transform: translate(-2px, -2px); }
+.proj-play-link:hover .proj-status { background: var(--yellow); box-shadow: var(--card-shadow); }
+.proj-play-link:hover .ext-link { transform: translate(2px, -2px); }
+.proj-play-link:active { transform: translate(1px, 1px); }
+.proj-play-link:focus-visible { outline: 3px solid var(--magenta); outline-offset: 3px; }
+.proj-card > p { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 14px; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-size: 11.5px;
+  font-weight: 800;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 2px 9px;
+  background: var(--paper);
+}
+
+/* ==================== AI 音乐创作 · 歌曲列表 ==================== */
+.music-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 12px;            /* 容器内边距 */
+  margin: 14px 0 10px;
+  border: var(--bd);
+  border-radius: 14px;
+  background: var(--paper);
+  box-shadow: var(--card-shadow);
+}
+.music-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  min-height: 46px;              /* 保证有高度，不被隐藏 */
+  border: var(--bd);            /* Neo：粗黑边 */
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.12s, box-shadow 0.12s, background 0.15s;
+}
+.music-item:hover { background: var(--yellow); transform: translate(-2px, -2px); box-shadow: var(--card-shadow); }
+.music-item:active { transform: translate(2px, 2px); box-shadow: var(--card-shadow-sm); }
+.music-item .song-name { font-size: 14.5px; }
+.music-item .play-icon { font-size: 18px; font-weight: 900; line-height: 1; }
+.music-item.playing { background: var(--green); }     /* 播放中：绿底 */
+/* 右侧操作区：外部链接 + 播放按钮 */
+.song-actions { display: flex; align-items: center; gap: 8px; }
+.link-icon { font-size: 16px; text-decoration: none; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; }
+.link-icon:hover { opacity: 1; }
+.song-hint { font-size: 11.5px; color: var(--ink-soft); font-weight: 700; margin: 2px 0 14px; text-align: center; }
+/* 当前高亮项（滚轮切换，纯视觉、不触发播放） */
+.music-item.selected { background: var(--blue-soft); box-shadow: 4px 4px 0 var(--blue); }
+/* 占位项：纯展示，无交互、灰化、滚轮跳过 */
+.music-item.placeholder {
+  cursor: default;
+  opacity: 0.55;
+  color: var(--ink-soft);
+  background: #EFEDE6;
+  box-shadow: var(--card-shadow);
+}
+.music-item.placeholder:hover { transform: none; box-shadow: var(--card-shadow); background: #EFEDE6; cursor: default; }
+
+/* ==================== AI 证书展示模块 ==================== */
+.cert-module { margin-top: 28px; }
+.cert-tabs {
+  display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+  margin: 6px 0 26px;
+}
+.cert-tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: var(--bd); border-radius: 12px;
+  padding: 10px 18px;
+  font-weight: 900; font-size: 15px;
+  background: var(--card); color: var(--ink);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.12s, box-shadow 0.12s, background 0.15s, color 0.15s;
+  cursor: pointer; white-space: nowrap;
+}
+.cert-tab .cnt { font-size: 12px; opacity: 0.7; font-weight: 800; }
+.cert-tab:hover { transform: translate(-2px, -2px); box-shadow: var(--card-shadow-lg); }
+.cert-tab:active { transform: translate(2px, 2px); box-shadow: var(--card-shadow-sm); }
+/* 选中：亮色填充（按机构配色） */
+.cert-tab.active.c-blue { background: var(--blue); color: #fff; }
+.cert-tab.active.c-yellow { background: var(--yellow); }
+.cert-tab.active.c-green { background: var(--green); }
+.cert-tab.active.c-purple { background: var(--purple); color: #fff; }
+
+.cert-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin: 4px 0 18px; flex-wrap: wrap;
+}
+.cert-state { font-size: 12.5px; font-weight: 800; color: var(--ink-soft); }
+.cert-toggle {
+  border: var(--bd); border-radius: 10px;
+  padding: 7px 16px; font-weight: 900; font-size: 13px;
+  background: var(--card); color: var(--ink);
+  box-shadow: var(--card-shadow); cursor: pointer; white-space: nowrap;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.15s;
+}
+.cert-toggle:hover { transform: translate(-2px, -2px); box-shadow: var(--card-shadow); background: var(--yellow); }
+.cert-toggle:active { transform: translate(2px, 2px); box-shadow: var(--card-shadow-sm); }
+
+/* ============ 证书：左侧「叠放区」 ⇄ 右侧「横向展示区」 ============ */
+.cert-stage {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: 4px;
+}
+/* 左侧：叠放预览卡（看起来像一摞证书，仅顶层可见） */
+.cert-stack { flex: 0 0 auto; padding: 2px; position: relative; z-index: 1; margin-right: 5px; }
+.cert-stack-card {
+  position: relative;
+  display: block; width: 150px; padding: 0;
+  border: 0; background: none; cursor: pointer;
+}
+.cert-stack-inner {
+  display: flex; flex-direction: column;
+  background: var(--card);
+  border: var(--bd); border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.14s, box-shadow 0.14s;
+}
+/* 叠堆放视觉：两层偏移 + 微旋转的副本，营造“一摞证书” */
+.cert-stack-card::before,
+.cert-stack-card::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: var(--card);
+  border: var(--bd); border-radius: 12px;
+  box-shadow: var(--card-shadow);
+}
+.cert-stack-card::before { transform: translate(7px, 7px) rotate(2.5deg); }
+.cert-stack-card::after  { transform: translate(14px, 14px) rotate(5deg); }
+.cert-stack-card:hover .cert-stack-inner { transform: translate(-3px, -3px); box-shadow: var(--card-shadow-lg); }
+.cert-stack-card:active .cert-stack-inner { transform: translate(2px, 2px); box-shadow: var(--card-shadow-sm); }
+
+/* 中间：竖线分隔（折叠时宽度为 0，展开时显现） */
+.cert-divider {
+  flex: 0 0 auto; align-self: stretch;
+  position: relative; z-index: 2;          /* 高于左侧堆叠区，避免被扑克牌装饰副本盖住 */
+  width: 0; margin: 0 16px 0 30px;          /* 左 30px：叠放区 margin-right:5px 且装饰副本右延 14px → 黑线左缘距扑克牌最右约 21-23px，清晰不接触 */
+  background: #000; opacity: 0;
+  transition: width 0.4s ease, opacity 0.35s ease;
+}
+.cert-stage.expanded .cert-divider { width: 3px; opacity: 1; }
+
+/* 右侧：横向滚动展示区（折叠时收起，展开后滑出） */
+.cert-display {
+  flex: 1 1 auto; min-width: 0;
+  overflow: hidden;
+  max-width: 0; opacity: 0; visibility: hidden;
+  transition: max-width 0.45s ease, opacity 0.35s ease, visibility 0.35s;
+}
+.cert-stage.expanded .cert-display { max-width: 2000px; opacity: 1; visibility: visible; }
+.cert-list {
+  display: flex; flex-wrap: nowrap;            /* 强制一行排列 */
+  gap: 16px;
+  overflow-x: auto;                            /* 超出部分横向滚动 */
+  padding: 6px 2px 14px;
+  height: 100%;
+  scrollbar-width: none;                       /* Firefox 隐藏滚动条 */
+  -ms-overflow-style: none;                    /* IE/Edge */
+}
+.cert-list::-webkit-scrollbar { display: none; }   /* Chrome/Safari */
+
+/* 卡片：从左侧平滑滑入（错峰），仅用 transform + opacity */
+.cert-list .cert-card {
+  transform: translateX(-28px); opacity: 0;
+  transition: transform 0.42s ease, opacity 0.42s ease;
+  transition-delay: calc(var(--i, 0) * 30ms);
+}
+.cert-list.go .cert-card { transform: translateX(0); opacity: 1; }
+.cert-card {
+  flex: 0 0 auto;                          /* 不收缩、不放大，保持原宽防变形 */
+  width: 200px;                            /* 固定宽度 */
+  padding: 0; border: 0; background: none;
+  cursor: pointer; text-align: left;
+}
+.cert-card-inner {
+  display: flex; flex-direction: column;
+  background: var(--card);
+  border: var(--bd); border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.14s, box-shadow 0.14s;
+}
+.cert-card-inner:hover { transform: translate(-3px, -3px); box-shadow: var(--card-shadow-lg); }
+.cert-thumb {
+  display: block;
+  aspect-ratio: 3 / 4; background: var(--paper);
+  border-bottom: var(--bd); overflow: hidden;
+}
+.cert-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cert-meta { padding: 7px 9px 9px; display: flex; flex-direction: column; gap: 3px; min-height: 63px; }
+.cert-org { font-size: 10.5px; font-weight: 900; opacity: 0.7; }
+.cert-note { font-size: 11.5px; font-weight: 800; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cert-hint { font-size: 11.5px; color: var(--ink-soft); font-weight: 700; margin: 14px 0 0; text-align: center; }
+
+/* 移动端左右翻页导航（默认隐藏，仅 <768px 显示；见下方媒体查询） */
+.cert-nav { display: none; }
+
+/* 全屏 Lightbox */
+.lightbox {
+  position: fixed; inset: 0; z-index: 300;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(22, 21, 19, 0.86);
+  backdrop-filter: blur(5px);                 /* 背景模糊，突出证书 */
+  -webkit-backdrop-filter: blur(5px);
+  padding: 24px;
+}
+.lightbox.open { display: flex; }
+.lb-figure {
+  margin: 0; max-width: 80vw;                  /* 放大至屏幕 80% 宽 */
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.lb-img {
+  max-width: 100%; max-height: 78vh; object-fit: contain;
+  border: 3px solid #fff; border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5); background: #fff;
+}
+.lb-cap { color: #fff; font-weight: 900; font-size: 16px; text-align: center; max-width: 90vw; }
+.lb-close, .lb-nav {
+  position: absolute;
+  background: var(--card); color: var(--ink);
+  border: 3px solid #fff; border-radius: 12px;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, transform 0.12s;
+}
+.lb-close { top: 18px; right: 22px; width: 48px; height: 48px; font-size: 22px; font-weight: 900; }
+.lb-nav { top: 50%; transform: translateY(-50%); width: 56px; height: 56px; font-size: 34px; font-weight: 900; line-height: 1; }
+.lb-prev { left: 22px; }
+.lb-next { right: 22px; }
+.lb-close:hover, .lb-nav:hover { background: var(--yellow); }
+.lb-nav:active { transform: translateY(-50%) scale(0.94); }
+
+@media (max-width: 768px) {
+  /* 移动端：证书单行横向滚动（与 PC 完全一致，纯 CSS 折叠 + flex 单行） */
+  .cert-module { padding: 20px 10px; }
+  .cert-list { gap: 12px; padding: 4px 2px 12px; }
+  .cert-card { width: 240px; min-width: 240px; flex-shrink: 0; }  /* 手机固定大图宽度，绝不挤压变形 */
+  .cert-card-inner { max-width: 320px; margin: 0 auto; }
+  .cert-stack-card { width: 116px; }           /* 手机上叠放预览卡缩小，给右侧列表留空间 */
+  .cert-stack-card::before { transform: translate(5px, 5px) rotate(2deg); }
+  .cert-stack-card::after  { transform: translate(8px, 8px) rotate(4deg); }  /* 收敛向右延伸，避免贴到竖线 */
+  .cert-divider { margin: 0 14px 0 24px; }       /* 竖线左移留白加大：黑线左缘距扑克牌约 21px，清晰不接触 */
+  .cert-meta { padding: 10px 12px 12px; }
+  .cert-org { font-size: 13px; }
+  .cert-note { font-size: 15px; }
+  .cert-tabs { gap: 8px; margin: 6px 0 18px; }
+  .cert-tab { padding: 8px 14px; font-size: 13px; }
+  .cert-toggle { padding: 6px 12px; font-size: 13px; }
+
+  /* 移动端：证书左右翻页按钮（仅在 <768px 显示） */
+  .cert-nav {
+    display: flex; justify-content: center; align-items: center; gap: 14px;
+    margin-top: 14px;
+  }
+  .cert-nav-btn {
+    border: 3px solid #000; border-radius: 10px;
+    padding: 8px 18px; font-weight: 900; font-size: 14px;
+    background: #fff; color: #111;
+    box-shadow: 3px 3px 0 #000; cursor: pointer; white-space: nowrap;
+    transition: transform 0.12s, box-shadow 0.12s, background 0.15s;
+  }
+  .cert-nav-btn:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 #000; background: var(--yellow); }
+  .cert-nav-btn:active:not(:disabled) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #000; }
+  .cert-nav-btn:disabled {
+    opacity: 0.4; cursor: not-allowed;
+    box-shadow: 2px 2px 0 #999; border-color: #999; background: #eee; color: #777;
+  }
+
+
+  /* 移动端字号与间距收敛，防溢出 */
+  .exp-h { font-size: 16px; }
+  .exp-ph-list, .exp-ph-grid { gap: 10px; }
+  /* 移动端导航：药丸按比例缩小 + 横向滚动（按钮不挤压变形）+ 激活态“呼吸”挤开 */
+  .nav-container {
+    min-width: 0;                       /* 取消桌面 500px，适配窄屏 */
+    max-width: calc(100vw - 16px);
+    padding: 8px 10px;                  /* 给激活态硬影留白，避免被滚动容器裁切 */
+    overflow-x: auto;                   /* 横竖屏切换/极窄屏可横向滑动，按钮不被裁掉 */
+    white-space: nowrap;                /* 不换行 */
+    gap: 6px;                           /* 按钮间距 */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .nav-container::-webkit-scrollbar { display: none; }
+  .nav-container .nav-btn {
+    flex-shrink: 0;                      /* 防止按钮被压缩变形 */
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);   /* 平滑过渡，激活态“呼吸”挤开 */
+  }
+  /* 激活时变大：左右变宽 + 抢占更多宽度，方便手指点击 */
+  .nav-container .nav-btn.active {
+    padding: 8px 20px;
+    flex-grow: 1.2;
+    font-weight: 900;
+  }
+  .nav-container .emoji-btn { width: 34px; height: 34px; margin-left: 6px; flex: 0 0 auto; }
+}
+/* 竖屏：导航栏居中排列（按钮不换行，超宽时仍可横向滑动） */
+@media (min-width: 375px) and (max-width: 768px) and (orientation: portrait) {
+  .nav-container { justify-content: center; }
+}
+/* 横屏：左对齐 + 允许左右滑动，按钮稍微缩小 */
+@media (max-width: 768px) and (orientation: landscape) {
+  .nav-container { justify-content: flex-start; }
+  .nav-container .nav-btn { padding: 4px 10px; font-size: 13px; }
+}
+@media (max-width: 560px) {
+  .lb-nav { width: 44px; height: 44px; font-size: 26px; }
+  .lb-prev { left: 8px; }
+  .lb-next { right: 8px; }
+  .lb-close { top: 12px; right: 12px; width: 40px; height: 40px; font-size: 18px; }
+}
+
+.skill-panel {
+  background: var(--card);
+  border: var(--bd);
+  border-radius: 16px;
+  box-shadow: 7px 7px 0 var(--purple);
+  padding: 26px;
+  margin-top: 28px;
+}
+.skill-panel h3 { font-size: 19px; font-weight: 900; margin-bottom: 4px; }
+.skill-panel .sp-sub { font-size: 13px; color: var(--ink-soft); font-weight: 600; margin-bottom: 16px; }
+
+.skill { margin-bottom: 13px; }
+.skill:last-child { margin-bottom: 0; }
+.skill-top { display: flex; justify-content: space-between; font-weight: 900; font-size: 14px; margin-bottom: 7px; }
+.skill-top span:last-child { font-size: 12.5px; opacity: 0.75; }
+.bar {
+  height: 22px;
+  border: var(--bd);
+  border-radius: 8px;
+  background: var(--card);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+.bar i {
+  display: block;
+  height: 100%;
+  width: var(--w);
+  border-right: var(--bd);
+  background: var(--c);
+  background: repeating-linear-gradient(-45deg, var(--c) 0 12px, color-mix(in srgb, var(--c) 65%, #fff) 12px 24px);
+  transition: width 1s cubic-bezier(0.3, 1, 0.4, 1);
+}
+html.js-on .bar i { width: 0; }
+html.js-on .bar.on i { width: var(--w); }
+
+.note-card {
+  border: 3px dashed var(--ink);
+  border-radius: 14px;
+  padding: 18px 22px;
+  background: var(--card);
+  font-weight: 700;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 18px;
+  font-size: 14.5px;
+}
+.note-card .icon-box { margin-bottom: 0; flex-shrink: 0; }
+
+/* ==================== 经历页 ==================== */
+.exp-panel {
+  background:
+    linear-gradient(rgba(22, 21, 19, 0.05) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(22, 21, 19, 0.05) 1.5px, transparent 1.5px),
+    var(--card);
+  background-size: 26px 26px;
+  border: var(--bd);
+  border-radius: 18px;
+  box-shadow: var(--card-shadow-lg);
+  padding: 22px 22px 24px;
+  position: relative;
+}
+.quest-cols { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.quest-tag {
+  display: inline-block;
+  border: var(--bd);
+  border-radius: 10px;
+  padding: 6px 18px;
+  font-weight: 900;
+  font-size: 15.5px;
+  background: var(--card);
+}
+.qt-main { box-shadow: 4px 4px 0 var(--magenta); }
+.qt-side { box-shadow: 4px 4px 0 var(--green-d); }
+
+/* ===== 时间线：左右平行双框 · 横向拖动滚动 ===== */
+/* 大容器：上下分层，整体一个外框，卡片不越界 */
+.tl { margin-top: 18px; border: var(--bd); border-radius: 16px; background: var(--card); overflow: hidden; }
+
+/* 每个框：上=主线（粉）/ 下=支线（绿），stacked */
+.tl-box { padding: 12px 14px 14px; position: relative; }
+/* 两框之间的粗边框分隔 */
+.tl-box-main { border-bottom: 4px solid var(--ink); }
+.tl-box-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.tl-box-tag { font-family: 'Press Start 2P', monospace; font-size: 9.5px; letter-spacing: 0.5px; }
+.tl-box-side .tl-box-tag { color: var(--green-d); }
+.tl-box-main .tl-box-tag { color: var(--magenta); }
+.tl-box-sub { font-size: 11px; font-weight: 900; letter-spacing: 2px; opacity: 0.5; }
+
+/* 横向拖动滚动容器 */
+.tl-track { overflow-x: auto; overflow-y: hidden; cursor: grab; user-select: none; padding: 4px 2px 8px; -ms-overflow-style: none; scrollbar-width: none; }
+.tl-track::-webkit-scrollbar { display: none; }
+.tl-track.dragging { cursor: grabbing; }
+
+/* 内部轨道：水平排列所有节点，宽度随内容撑开 */
+.tl-rail { --card-h: 176px; display: inline-flex; align-items: flex-start; gap: 52px; width: max-content; position: relative; padding: 8px 16px 4px; }
+/* 贯穿左右的水平虚线，正好落在圆点高度 */
+.tl-rail::before { content: ''; position: absolute; top: calc(8px + var(--card-h) + 16px + 8px); left: 75px; right: 75px; border-top: 3px dashed var(--ink); z-index: 0; }
+
+/* 节点：竖版卡片 + 圆点 + 日期，自上而下排布 */
+.tl-node { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; flex: 0 0 auto; }
+.tl-card {
+  width: 150px;
+  height: var(--card-h);
+  background: var(--card);
+  border: var(--bd);
+  border-radius: 11px;
+  padding: 10px 11px;
+  margin-bottom: 16px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.tl-box-side .tl-card { box-shadow: 3px 3px 0 var(--green-d); }
+.tl-box-main .tl-card { box-shadow: 3px 3px 0 var(--magenta); }
+.tl-box-side .tl-card:hover { border-color: var(--green-d); transform: translateY(-4px); }
+.tl-box-main .tl-card:hover { border-color: var(--magenta); transform: translateY(-4px); }
+
+/* 圆点：落在水平虚线上 */
+.tl-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--card); border: 3px solid var(--ink); flex-shrink: 0; transition: transform 0.18s ease; }
+.tl-box-side .tl-dot { background: var(--green-d); }
+.tl-box-main .tl-dot { background: var(--magenta); }
+.tl-node:hover .tl-dot { transform: scale(1.45); }
+
+/* 日期：虚线下方（12px） */
+.tl-when { margin-top: 8px; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; white-space: nowrap; }
+
+.tl-top { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
+.tl-icon {
+  width: 28px;
+  height: 28px;
+  border: 2.5px solid var(--ink);
+  border-radius: 7px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.tl-icon svg { width: 14px; height: 14px; }
+.tl-type { font-size: 10px; font-weight: 900; letter-spacing: 1.5px; opacity: 0.55; }
+.tl-card h4 { font-size: 15px; font-weight: 900; line-height: 1.25; }
+.tl-card p { font-size: 12.5px; color: var(--ink-soft); margin-top: 5px; line-height: 1.45; }
+
+/* 空节点：圆点灰、日期淡 */
+.tl-node.tl-empty .tl-dot { background: #d9d6cc; border-color: #9a968a; }
+.tl-node.tl-empty .tl-when { color: var(--ink-soft); opacity: 0.6; }
+/* 敬请期待占位卡：半透明灰 + 锁 */
+.tl-card.tl-locked {
+  background: rgba(0,0,0,0.045);
+  border-style: dashed;
+  border-color: #b8b4a8;
+  color: var(--ink-soft);
+  opacity: 0.7;
+  cursor: default;
+  box-shadow: none !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+.tl-card.tl-locked:hover { transform: none !important; border-color: #b8b4a8 !important; }
+.tl-locked .lock-ic { font-size: 30px; line-height: 1; }
+.tl-locked .lock-txt { font-size: 12px; font-weight: 900; letter-spacing: 1.5px; margin-top: 8px; }
+
+/* ===== 经历页：暂未解锁 · 封条贴纸 ===== */
+/* ==================== 经历页：内容板块 + 互动留言板 ==================== */
+.exp-group { margin-top: 22px; }
+.exp-h {
+  display: inline-block;
+  font-size: 19px; font-weight: 900; line-height: 1.3;
+  border: 2px solid #000; border-radius: 10px;
+  padding: 5px 14px; background: var(--card);
+  box-shadow: 3px 3px 0 #000;
+  margin-bottom: 12px;
+}
+.exp-ph-list { display: flex; flex-direction: column; gap: 12px; }
+.exp-ph-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+/* 占位卡：灰虚线 + 浅灰底，波普圆角，无硬阴影（与正式内容区分） */
+.exp-ph {
+  border: 2px dashed #999;
+  background: #F5F5F5;
+  border-radius: 12px;
+  padding: 18px 14px;
+  text-align: center;
+  font-weight: 800; font-size: 14px; color: #777;
+  box-shadow: none;
+  cursor: pointer;                    /* 悬停显示手型，提示可点击 */
+  user-select: none;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+/* 点击瞬变：震动 + 变红加粗，模拟“被敲打” */
+@keyframes shake-text {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-3px) rotate(-5deg); }
+  50%  { transform: translateX(3px) rotate(5deg); }
+  75%  { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+.exp-ph.clicked-shake {
+  animation: shake-text 0.4s ease-in-out;
+  font-weight: 900;                   /* 框不变，只加粗文字（颜色由 JS 轮换注入） */
+}
+/* 弹幕：从右往左飘过屏幕顶部，3 秒后自动移除 */
+.danmaku {
+  position: fixed; left: 100%; top: 16px; z-index: 900;
+  padding: 8px 16px; white-space: nowrap; pointer-events: none;
+  background: #fff; border: 3px solid #000; border-radius: 999px;
+  box-shadow: 4px 4px 0 #000; font-weight: 900; font-size: 15px; color: #1a1a1a;
+  animation: danmaku-fly 3s linear forwards;
+}
+@keyframes danmaku-fly {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-100vw - 100%)); }
+}
+/* 经历大标题点击：抖动 + 缩放 pop */
+@keyframes exp-title-pop {
+  0%   { transform: translateX(0) scale(1) rotate(0); }
+  25%  { transform: translateX(-5px) scale(1.04) rotate(-1.5deg); }
+  50%  { transform: translateX(5px) scale(1.04) rotate(1.5deg); }
+  75%  { transform: translateX(-3px) scale(1.02) rotate(-1deg); }
+  100% { transform: translateX(0) scale(1) rotate(0); }
+}
+.exp-title-shake { animation: exp-title-pop 0.6s ease-in-out; cursor: pointer; }
+/* 证书板块：AI 证书实体卡（可点击跳转 #ai） */
+.cert-ai-card {
+  display: flex; flex-direction: column; justify-content: center; gap: 8px;
+  border: 3px solid #000; border-radius: 12px;
+  background: #FDE047;
+  box-shadow: 4px 4px 0 #000;
+  padding: 18px 14px; text-align: center;
+  text-decoration: none; cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.cert-ai-card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #000; }
+.cert-ai-card:active { transform: translate(0,0); box-shadow: 4px 4px 0 #000; }
+.cert-ai-title { font-weight: 900; font-size: 16px; color: #1a1a1a; }
+.cert-ai-sub { font-weight: 800; font-size: 13px; color: #1a1a1a; }
+.exp-transition {
+  margin: 30px 0 22px;
+  text-align: center;
+  font-size: 17px; font-weight: 900; color: var(--ink);
+}
+
+/* —— 互动留言板 —— */
+.board {
+  border: 3px solid #000; border-radius: 18px;
+  background: var(--card);
+  box-shadow: 5px 5px 0 #000;
+  padding: 22px 20px 24px;
+  background-image: radial-gradient(rgba(0,0,0,0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.board-head { text-align: center; margin-bottom: 16px; }
+.board-title { font-size: clamp(20px, 4.5vw, 28px); font-weight: 900; line-height: 1.3; }
+.board-sub { margin-top: 8px; font-size: 13.5px; font-weight: 700; color: var(--ink-soft); }
+
+.board-tabs { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
+.board-tab {
+  border: 3px solid #000; border-radius: 12px;
+  padding: 10px 16px; font-weight: 900; font-size: 15px;
+  background: var(--card); color: #000;
+  box-shadow: 3px 3px 0 #000;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.board-tab:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 #000; }
+/* 选中模式高亮 + 阴影偏移 */
+.board-tab.active[data-mode="task"] { background: var(--blue); color: #fff; box-shadow: 4px 4px 0 #000; }
+.board-tab.active[data-mode="idea"] { background: var(--magenta); color: #fff; box-shadow: 4px 4px 0 #000; }
+
+.board-fields { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.board-fields[hidden] { display: none; }
+.board-label { font-size: 14px; font-weight: 900; }
+.board-label .req { color: #e23b3b; }
+.board-input, .board-select {
+  border: 2px solid #000; border-radius: 12px;
+  padding: 11px 13px; font-size: 15px; font-weight: 700;
+  font-family: inherit; background: #fff; color: #000;
+  width: 100%; resize: vertical;
+}
+.board-input:focus, .board-select:focus { outline: none; box-shadow: 3px 3px 0 var(--blue); }
+
+.board-submit {
+  display: block; width: 100%;
+  border: 3px solid #000; border-radius: 12px;
+  background: var(--yellow); color: #000;
+  font-weight: 900; font-size: 16px; padding: 13px;
+  box-shadow: 4px 4px 0 #000;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.board-submit:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
+.board-submit.shake { animation: boardShake 0.4s ease; }
+@keyframes boardShake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-8px); }
+  30% { transform: translateX(8px); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(6px); }
+  75% { transform: translateX(-3px); }
+  90% { transform: translateX(3px); }
+}
+
+.board-list { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+.board-empty { text-align: center; color: var(--ink-soft); font-weight: 800; padding: 14px; }
+/* 便利贴卡片：随机波普配色 + 轻微歪斜 */
+.board-card {
+  border: 3px solid #000; border-radius: 12px;
+  padding: 12px 14px; font-weight: 800;
+  box-shadow: 4px 4px 0 #000;
+  background: var(--yellow);
+}
+.board-card .bc-tag {
+  display: inline-block; font-size: 12px; font-weight: 900;
+  border: 2px solid #000; border-radius: 8px; padding: 1px 8px;
+  background: #fff; margin-bottom: 6px;
+}
+.board-card .bc-text { display: block; font-size: 15px; line-height: 1.5; }
+.board-card .bc-time { display: block; margin-top: 6px; font-size: 11px; font-weight: 700; opacity: 0.6; }
+.board-more {
+  display: block; margin: 14px auto 0;
+  border: 2px solid #000; border-radius: 10px;
+  padding: 8px 16px; font-weight: 900; background: var(--card);
+  box-shadow: 3px 3px 0 #000;
+}
+.board-more[hidden] { display: none; }
+
+/* —— 提交成功模态弹窗 —— */
+.exp-modal-mask {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0); opacity: 0; pointer-events: none;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+.exp-modal-mask.show { background: rgba(0,0,0,0.5); opacity: 1; pointer-events: auto; }
+.exp-modal {
+  width: 400px; max-width: 90vw; min-height: 300px;
+  background: var(--yellow);
+  border: 3px solid #000; border-radius: 18px;
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.85);
+  padding: 28px 24px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  transform: scale(0.8);
+  transition: transform 0.45s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+.exp-modal-mask.show .exp-modal { transform: scale(1); }
+.exp-modal-emoji { font-size: 46px; line-height: 1; margin-bottom: 14px; }
+.exp-modal-text { font-size: 16px; font-weight: 800; line-height: 1.6; white-space: pre-line; }
+.exp-modal-btn {
+  margin-top: 20px;
+  border: 3px solid #000; border-radius: 12px;
+  padding: 10px 22px; font-weight: 900; font-size: 15px;
+  background: #fff; color: #000; box-shadow: 4px 4px 0 #000;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.exp-modal-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
+
+@media (max-width: 560px) {
+  .exp-ph-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ==================== PPT 作品展示页 ==================== */
+.ppt-header { text-align: center; margin-bottom: 34px; }
+.ppt-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 900; letter-spacing: 0.6px;
+  color: var(--ink-soft); text-transform: uppercase;
+}
+.ppt-icon { width: 18px; height: 18px; color: var(--orange); }
+.ppt-sep { opacity: 0.45; font-weight: 700; }
+.ppt-title { font-size: clamp(32px, 5vw, 56px); font-weight: 900; margin-top: 8px; line-height: 1.1; }
+.ppt-dot { color: var(--orange); }
+
+.ppt-stage {
+  position: relative; height: 420px; margin: 0 auto; max-width: 1100px; perspective: 1200px;
+}
+.ppt-track { position: relative; width: 100%; height: 100%; }
+.ppt-slide {
+  position: absolute; left: 50%; top: 50%;
+  width: min(62%, 760px); aspect-ratio: 16 / 9;
+  border-radius: 18px; overflow: hidden;
+  transform: translate(calc(-50% - 70%), -50%) scale(0.82);
+  opacity: 0.45; z-index: 1;
+  transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.28);
+  background: #0c1f3a;
+  border: 3px solid rgba(255,255,255,0.16);
+}
+.ppt-slide.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1; z-index: 3;
+  box-shadow: 0 28px 70px rgba(0,0,0,0.38);
+}
+.ppt-slide.next { transform: translate(calc(-50% + 70%), -50%) scale(0.82); }
+.ppt-slide.prev { transform: translate(calc(-50% - 70%), -50%) scale(0.82); }
+/* 悬停：整卡向上浮起一点 + 阴影加深 + 边框高亮 */
+.ppt-slide.active:hover {
+  transform: translate(-50%, calc(-50% - 12px)) scale(1);
+  box-shadow: 0 40px 90px rgba(0,0,0,0.5);
+  border-color: var(--orange);
+}
+.ppt-slide.next:hover {
+  transform: translate(calc(-50% + 70%), calc(-50% - 12px)) scale(0.82);
+  border-color: var(--orange);
+}
+.ppt-slide.prev:hover {
+  transform: translate(calc(-50% - 70%), calc(-50% - 12px)) scale(0.82);
+  border-color: var(--orange);
+}
+
+.ppt-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(91,141,239,0.35) 0%, transparent 50%),
+    radial-gradient(circle at 25% 75%, rgba(255,159,67,0.18) 0%, transparent 45%),
+    linear-gradient(135deg, #071226 0%, #0f2b4d 55%, #06182e 100%);
+}
+.ppt-bg::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
+}
+.ppt-bg-2 {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(241,91,181,0.28) 0%, transparent 50%),
+    linear-gradient(135deg, #1a0f26 0%, #2d1b4e 55%, #150c24 100%);
+}
+.ppt-bg-3 {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(126,217,87,0.28) 0%, transparent 50%),
+    linear-gradient(135deg, #0a1f12 0%, #143324 55%, #08160d 100%);
+}
+.ppt-city {
+  position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: auto;
+  opacity: 0.78; pointer-events: none;
+}
+.ppt-clouds {
+  position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: auto;
+  opacity: 0.9; pointer-events: none;
+}
+.ppt-content {
+  position: relative; z-index: 2; height: 100%; padding: 34px 40px;
+  color: #fff; display: flex; flex-direction: column; justify-content: center;
+}
+.ppt-slide-title {
+  font-size: clamp(38px, 5.5vw, 68px); font-weight: 900; letter-spacing: 4px;
+  line-height: 1.05; text-shadow: 0 3px 12px rgba(0,0,0,0.4);
+  font-family: 'STXingkai', 'KaiTi', 'SimSun', cursive;
+  background: linear-gradient(180deg, #fff 0%, #ffe0a3 60%, #ffbd5c 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  width: fit-content;
+}
+.ppt-slide-title.plain {
+  font-family: var(--font); background: none; -webkit-text-fill-color: #fff;
+}
+.ppt-slide-sub {
+  margin-top: 14px; font-size: 16px; font-weight: 700; line-height: 1.7;
+  color: rgba(255,255,255,0.93); text-shadow: 0 2px 8px rgba(0,0,0,0.35); max-width: 420px;
+}
+.ppt-badges {
+  margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px;
+}
+.ppt-badges span {
+  display: inline-block; padding: 6px 14px; border-radius: 999px;
+  background: rgba(91,141,239,0.9); border: 2px solid rgba(255,255,255,0.35);
+  font-size: 12px; font-weight: 800; cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.ppt-badges span:hover { transform: translateY(-2px); filter: brightness(1.12); }
+/* 占位卡整体可点击提示 */
+.ppt-slide.js-ph { cursor: pointer; }
+
+/* —— PPT 占位卡点击提示：波普风顶部弹幕（亮黄底 + 粗黑边 + 硬投影）—— */
+.ppt-toast {
+  position: fixed; top: 30px; left: 50%;
+  transform: translateX(-50%) translateY(-90px);   /* 初始停在屏幕外（top:30px - 90） */
+  z-index: 999;
+  padding: 15px 32px;
+  background: #FFD700;                              /* 亮黄底 */
+  color: #000;                                     /* 纯黑粗体 */
+  font-weight: 900;
+  font-size: 18px;                                 /* 字号稍大 */
+  letter-spacing: 0.5px;
+  border: 3px solid #000;                          /* 粗黑边 */
+  border-radius: 16px;                             /* 贴纸/气泡圆角 */
+  box-shadow: 5px 5px 0 #000;                      /* 硬朗黑投影（不模糊） */
+  opacity: 0; pointer-events: none;
+  white-space: nowrap;
+  transition: transform 0.55s cubic-bezier(0.34, 1.8, 0.4, 1), opacity 0.3s ease;  /* 更强弹跳 */
+  will-change: transform, opacity;
+}
+/* 漫画对话气泡小尾巴 */
+.ppt-toast::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -13px;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 14px solid #000;
+}
+.ppt-toast.show {
+  transform: translateX(-50%) translateY(0);       /* 滑入到 top:30px */
+  opacity: 1;
+}
+
+.ppt-controls {
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px; margin-top: 28px;
+}
+.ppt-line {
+  flex: 1; max-width: 220px; height: 2px; background: var(--orange); opacity: 0.7;
+}
+.ppt-arrow {
+  width: 46px; height: 46px; border: 3px solid var(--ink); border-radius: 10px;
+  background: var(--card); color: var(--ink); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: var(--card-shadow);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.ppt-arrow svg { width: 22px; height: 22px; }
+.ppt-arrow:hover { transform: translate(-2px, -2px); box-shadow: var(--card-shadow-lg); background: var(--orange); color: #fff; }
+.ppt-arrow:active { transform: translate(2px, 2px); box-shadow: var(--card-shadow-sm); }
+
+@media (max-width: 860px) {
+  .ppt-stage { height: 340px; }
+  .ppt-slide { width: min(72%, 560px); }
+  .ppt-content { padding: 22px 26px; }
+  .ppt-slide-title { font-size: 34px; }
+  .ppt-slide-sub { font-size: 14px; }
+}
+@media (max-width: 560px) {
+  .ppt-stage { height: 260px; }
+  .ppt-slide { width: min(82%, 360px); border-radius: 12px; }
+  .ppt-content { padding: 16px 18px; }
+  .ppt-slide-title { font-size: 26px; letter-spacing: 2px; }
+  .ppt-slide-sub { font-size: 12px; margin-top: 10px; }
+  .ppt-badges { margin-top: 14px; gap: 6px; }
+  .ppt-badges span { padding: 4px 10px; font-size: 10px; }
+  .ppt-controls { gap: 10px; margin-top: 20px; }
+  .ppt-line { max-width: 80px; }
+  .ppt-arrow { width: 38px; height: 38px; }
+  .ppt-arrow svg { width: 18px; height: 18px; }
+  .ppt-title { font-size: 28px; }
+  .ppt-label { font-size: 10px; }
+}
+
+/* ==================== 页脚 / Toast ==================== */
+footer {
+  border-top: var(--bd);
+  background: var(--card);
+  padding: 18px 20px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+}
+footer .f-name { font-weight: 900; font-size: 15px; }
+footer .f-sub { color: var(--ink-soft); margin-top: 4px; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 36px;
+  transform: translateX(-50%) translateY(24px);
+  background: var(--yellow);
+  border: var(--bd);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  padding: 10px 20px;
+  font-weight: 900;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s;
+  z-index: 200;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ==================== 响应式 ==================== */
+@media (max-width: 860px) {
+  .hero { flex-direction: column; gap: 44px; padding-top: 14px; }
+  .hero-text, .idcard-wrap { flex: none; width: 100%; }
+  .hero-text { justify-content: flex-start; }
+  .idcard { transform: none; max-width: 460px; margin: 0 auto; width: 100%; }
+  .idcard-wrap { max-width: 460px; margin: 0 auto; width: 100%; }
+  .recent-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+  .recent-grid::before { display: none; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .quest-cols { justify-content: center; gap: 18px; }
+}
+
+@media (max-width: 560px) {
+  body { font-size: 15px; }
+  .hero-btns { flex-direction: column; align-items: stretch; }
+  .hero-btns .btn { justify-content: center; }
+  .idcard-body { flex-direction: column; align-items: center; }
+  .idcard-fields { width: 100%; }
+  .pink-badge { width: 52px; height: 52px; top: -18px; right: -6px; }
+  .exp-panel { padding: 22px 16px 26px; }
+}
+
+/* ==================== 打印 ==================== */
+@media print {
+  .nav-container, .toast, .sparkle, .hero-btns { display: none !important; }
+  main { padding-top: 0; }
+  .page { display: block !important; page-break-after: always; animation: none !important; }
+  .rv { opacity: 1 !important; transform: none !important; }
+  .bar i { width: var(--w) !important; transition: none !important; }
+  body { background: #fff; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+
+/* ==================== 减少动态 ==================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+
+</style>
+<noscript><style>.hero-reveal{opacity:1!important;transform:none!important;}</style></noscript>
+
+</head>
+<body>
+
+<!-- ==================== 导航 ==================== -->
+<nav class="nav-container" aria-label="主导航">
+  <button class="nav-item nav-btn home active" data-page="home">首页</button>
+  <button class="nav-item nav-btn about" data-page="about">关于我</button>
+  <button class="nav-item nav-btn ai" data-page="ai">AI</button>
+  <button class="nav-item nav-btn ppt" data-page="ppt">PPT</button>
+  <button class="nav-item nav-btn exp" data-page="exp">经历</button>
+  <button class="nav-smile emoji-btn" id="smileBtn" aria-label="复制我的邮箱" title="点我复制邮箱">
+    <svg viewBox="0 0 32 32" shape-rendering="crispEdges" aria-hidden="true">
+      <rect x="4" y="4" width="24" height="24" fill="#161513"/>
+      <rect x="5" y="5" width="22" height="22" fill="#FFDE59"/>
+      <rect x="10" y="12" width="3" height="4" fill="#161513"/>
+      <rect x="19" y="12" width="3" height="4" fill="#161513"/>
+      <rect x="7" y="16" width="4" height="3" fill="#F15BB5"/>
+      <rect x="21" y="16" width="4" height="3" fill="#F15BB5"/>
+      <rect x="10" y="20" width="12" height="4" fill="#161513"/>
+      <rect x="13" y="22" width="6" height="1" fill="#F15BB5"/>
+    </svg>
+  </button>
+</nav>
+
+<main>
+<!-- ==================== 首页 ==================== -->
+<section class="page active" id="page-home">
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-text">
+        <svg class="sparkle" style="top:-14px;right:8%;" width="20" height="20" viewBox="0 0 24 24"><path d="M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6z" fill="#161513"/></svg>
+        <p class="welcome" id="welcomeText">Welcome to</p>
+        <div class="hero-reveal" id="heroReveal">
+        <h1><span class="hl hl-blue">曾伟的世界！</span></h1>
+        <p class="hero-slogan"><span class="sl-line"><span class="inf" aria-hidden="true">∞</span>无限勇敢</span><span class="sl-line">无限进步</span></p>
+        <p><span class="mk-b">2026准大一新生</span> · <span class="mk-p">AI工具流玩家</span> —— 这个网站是我和AI一起写的。</p>
+        <div class="hero-btns">
+          <a class="btn btn-blue" href="tel:19176364560">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            19176364560
+          </a>
+          <button class="btn btn-yellow" id="emailBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+            复制邮箱
+          </button>
+          <span class="btn btn-green" style="cursor:default;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            广西 · 南宁
+          </span>
+        </div>
+        </div><!-- /hero-reveal -->
+      </div>
+
+      <div class="idcard-wrap rv reveal">
+        <div class="pink-badge">
+          <svg viewBox="0 0 30 30"><circle cx="10.5" cy="11" r="2.2" fill="#161513"/><circle cx="19.5" cy="11" r="2.2" fill="#161513"/><path d="M8.5 16.5 Q15 23 21.5 16.5" stroke="#161513" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <div class="idcard" id="idcard" title="双击卡片翻面，查看技能与爱好">
+          <div class="idcard-inner">
+            <div class="idcard-front">
+              <div class="idcard-head">
+                <b>ID CARD</b>
+                <span>NANNING VOCATIONAL &amp; TECHNICAL UNIVERSITY</span>
+              </div>
+              <div class="idcard-body">
+                <div class="avatar-col">
+                  <div class="avatar-box">
+                    <img src="大头照.jpg" alt="曾伟的大头照">
+                  </div>
+                  <div class="mini-field mf-blue">2007.11</div>
+                  <div class="mini-field mf-green">广西</div>
+                </div>
+                <div class="idcard-fields">
+                  <div class="field"><label>NAME</label><div class="f-yellow" data-toast="你好，我是曾伟！">曾伟</div></div>
+                  <div class="field"><label>MAJOR</label><div class="f-blue" data-toast="我在学泰语，泰酷辣！">应用泰语</div></div>
+                  <div class="field"><label>STATUS</label><div class="f-purple" data-toast="2026级准大一新生">南宁职业技术大学</div></div>
+                </div>
+              </div>
+              <hr class="idcard-divider">
+              <div class="idcard-foot">
+                <div>
+                  <div class="id-no">ID NO: ZW-2026-0901-NN</div>
+                  <div class="barcode-box" style="margin-top:6px;">
+                    <svg viewBox="0 0 128 30" aria-hidden="true">
+                      <g fill="#161513">
+                        <rect x="2" y="1" width="3" height="28"/><rect x="8" y="1" width="1.5" height="28"/><rect x="12" y="1" width="4" height="28"/><rect x="19" y="1" width="2" height="28"/><rect x="23" y="1" width="1.5" height="28"/><rect x="28" y="1" width="3" height="28"/><rect x="34" y="1" width="1.5" height="28"/><rect x="38" y="1" width="5" height="28"/><rect x="46" y="1" width="2" height="28"/><rect x="50" y="1" width="3" height="28"/><rect x="56" y="1" width="1.5" height="28"/><rect x="60" y="1" width="4" height="28"/><rect x="67" y="1" width="2" height="28"/><rect x="71" y="1" width="1.5" height="28"/><rect x="76" y="1" width="3" height="28"/><rect x="82" y="1" width="2" height="28"/><rect x="86" y="1" width="4" height="28"/><rect x="93" y="1" width="1.5" height="28"/><rect x="97" y="1" width="3" height="28"/><rect x="103" y="1" width="2" height="28"/><rect x="107" y="1" width="1.5" height="28"/><rect x="111" y="1" width="4" height="28"/><rect x="118" y="1" width="2" height="28"/><rect x="123" y="1" width="3" height="28"/>
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="mini-badge mb-pink">AI</span>
+                  <span class="mini-badge mb-green">泰</span>
+                </div>
+              </div>
+            </div><!-- /idcard-front -->
+            <div class="idcard-back">
+              <div class="idcard-back-head">ABOUT · 翻面成功！</div>
+              <div class="back-section reveal">
+                <div class="back-label">技能 SKILLS</div>
+                <div class="back-tags">
+                  <span class="bt bt-blue">AI 工具流</span>
+                  <span class="bt bt-green">Canvas 游戏</span>
+                  <span class="bt bt-pink">Prompt 工程</span>
+                </div>
+              </div>
+              <div class="back-section reveal">
+                <div class="back-label">爱好 HOBBIES</div>
+                <div class="back-tags">
+                  <span class="bt bt-purple">泰语</span>
+                  <span class="bt bt-pink">音乐创作</span>
+                  <span class="bt bt-green">打游戏</span>
+                  <span class="bt bt-blue">折腾网站</span>
+                </div>
+              </div>
+              <div class="back-quote">“无限勇敢，无限进步。”</div>
+              <div class="back-tip">双击卡片翻回正面 ↺</div>
+            </div><!-- /idcard-back -->
+          </div><!-- /idcard-inner -->
+        </div>
+        <div class="flip-hint">↻ 双击卡片翻面</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==================== 关于我 ==================== -->
+<section class="page" id="page-about">
+  <div class="wrap">
+    <div class="sec-head rv reveal">
+      <span class="en">ABOUT ME</span>
+      <h2>关于 <span class="hl hl-yellow" id="aboutMeChar" role="button" tabindex="0" title="点我试试 👀" style="cursor:pointer">我</span></h2>
+    </div>
+
+    <div class="about-frame reveal">
+    <div class="statement rv rv-seq" id="stmtCard" role="button" tabindex="0" title="点我试试 ✨">
+      <span class="st-tag">STATEMENT</span>
+      <svg class="sparkle" style="top:-12px;right:6%;" width="18" height="18" viewBox="0 0 24 24"><path d="M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6z" fill="#161513"/></svg>
+      <h3>每一个别人看起来普通的日子，<br>我都在偷偷升级。</h3>
+      <p>我正在朝着自己喜欢的方向前进！不知道 3 年、5 年后的我，会成为什么样的人，过上什么样的生活呢？</p>
+    </div>
+
+    <!-- ============ 像素风个人档案 ============ -->
+    <div class="px-block">
+
+      <div class="px-card px-mbti rv rv-seq">
+        <span class="px-title">MBTI</span>
+        <div class="mbti-main">
+          <span class="mbti-type">INTJ</span>
+          <span class="mbti-en">ARCHITECT · 建筑师</span>
+        </div>
+        <div class="mbti-stats">
+          <span class="mbti-stat" role="button" tabindex="0" aria-label="I 内倾 · 点击翻转">
+            <span class="mbti-inner">
+              <span class="mbti-face mbti-front"><b>I</b><small>内倾</small></span>
+              <span class="mbti-face mbti-back">独处回血<br>内心戏超多</span>
+            </span>
+          </span>
+          <span class="mbti-stat" role="button" tabindex="0" aria-label="N 直觉 · 点击翻转">
+            <span class="mbti-inner">
+              <span class="mbti-face mbti-front"><b>N</b><small>直觉</small></span>
+              <span class="mbti-face mbti-back">脑洞驱动<br>看得到未来</span>
+            </span>
+          </span>
+          <span class="mbti-stat" role="button" tabindex="0" aria-label="T 思考 · 点击翻转">
+            <span class="mbti-inner">
+              <span class="mbti-face mbti-front"><b>T</b><small>思考</small></span>
+              <span class="mbti-face mbti-back">逻辑优先<br>理性上头</span>
+            </span>
+          </span>
+          <span class="mbti-stat" role="button" tabindex="0" aria-label="J 判断 · 点击翻转">
+            <span class="mbti-inner">
+              <span class="mbti-face mbti-front"><b>J</b><small>判断</small></span>
+              <span class="mbti-face mbti-back">计划控<br>喜欢闭环</span>
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="px-card rv rv-seq">
+        <span class="px-title">关于我 ABOUT ME</span>
+        <p class="px-about" data-text="你好，我是曾伟。一个学泰语但沉迷写代码的准大一新生。这个网站是我的第一个作品，记录着我从零开始的前端之旅。">你好，我是曾伟。一个学泰语但沉迷写代码的准大一新生。这个网站是我的第一个作品，记录着我从零开始的前端之旅。</p>
+      </div>
+
+    </div>
+    </div>
+
+    <div class="sec-head rv">
+      <span class="en">QUEST LOG</span>
+      <h2 class="flicker">地球 Online <span class="hl hl-pink">开放游戏进度</span></h2>
+      <p class="sec-sub">主线稳步推进，支线疯狂开花。</p>
+    </div>
+
+        <div class="exp-panel rv reveal">
+
+      <div class="tl">
+        <!-- 上框：主线任务时间线（粉色系） -->
+        <div class="tl-box tl-box-main">
+          <div class="tl-box-head">
+            <span class="tl-box-tag">主线任务</span>
+            <span class="tl-box-sub">MAIN QUESTS</span>
+          </div>
+          <div class="tl-track">
+            <div class="tl-rail">
+              <!-- 敬请期待（前） -->
+              <div class="tl-node tl-empty">
+                <div class="tl-card tl-locked">
+                  <span class="lock-ic">🔒</span>
+                  <span class="lock-txt">敬请期待</span>
+                </div>
+                <span class="tl-dot"></span>
+                <span class="tl-when">？？？？</span>
+              </div>
+
+              <!-- 2026.06 高中毕业 -->
+              <div class="tl-node">
+                <div class="tl-card">
+                  <div class="tl-top">
+                    <div class="tl-icon" style="background:var(--magenta);">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                    </div>
+                    <span class="tl-type">主线</span>
+                  </div>
+                  <h4>高中毕业</h4>
+                  <p>离开防城港，获得成就「准大学生」。</p>
+                </div>
+                <span class="tl-dot"></span>
+                <span class="tl-when">2026.06</span>
+              </div>
+
+              <!-- 2026.09 入学南宁职业技术大学 -->
+              <div class="tl-node">
+                <div class="tl-card">
+                  <div class="tl-top">
+                    <div class="tl-icon" style="background:var(--magenta);">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    </div>
+                    <span class="tl-type">主线</span>
+                  </div>
+                  <h4>入学南宁职业技术大学</h4>
+                  <p>应用泰语专业，主线剧情正式开启！</p>
+                </div>
+                <span class="tl-dot"></span>
+                <span class="tl-when">2026.09</span>
+              </div>
+
+              <!-- 敬请期待（后） -->
+              <div class="tl-node tl-empty">
+                <div class="tl-card tl-locked">
+                  <span class="lock-ic">🔒</span>
+                  <span class="lock-txt">敬请期待</span>
+                </div>
+                <span class="tl-dot"></span>
+                <span class="tl-when">？？？？</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 下框：支线任务时间线（绿色系） -->
+        <div class="tl-box tl-box-side">
+          <div class="tl-box-head">
+            <span class="tl-box-tag">支线任务</span>
+            <span class="tl-box-sub">SIDE QUESTS</span>
+          </div>
+          <div class="tl-track">
+            <div class="tl-rail">
+              <!-- 敬请期待（前） -->
+              <div class="tl-node tl-empty">
+                <div class="tl-card tl-locked">
+                  <span class="lock-ic">🔒</span>
+                  <span class="lock-txt">敬请期待</span>
+                </div>
+                <span class="tl-dot"></span>
+                <span class="tl-when">？？？？</span>
+              </div>
+
+              <!-- 2026.07 点亮 AI 工具流技能树 -->
+              <div class="tl-node">
+                <div class="tl-card">
+                  <div class="tl-top">
+                    <div class="tl-icon" style="background:var(--green-d);">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/></svg>
+                    </div>
+                    <span class="tl-type">支线</span>
+                  </div>
+                  <h4>点亮 AI 工具流技能树</h4>
+                  <p>大模型、网页开发、AI 音乐，全都试了个遍。</p>
+                </div>
+                <span class="tl-dot"></span>
+                <span class="tl-when">2026.07</span>
+              </div>
+
+              <!-- 2026.08 AI 小游戏两连发 -->
+              <div class="tl-node">
+                <div class="tl-card">
+                  <div class="tl-top">
+                    <div class="tl-icon" style="background:var(--green-d);">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.152A4 4 0 0 0 17.32 5z"/></svg>
+                    </div>
+                    <span class="tl-type">支线</span>
+                  </div>
+                  <h4>AI 小游戏两连发</h4>
+                  <p>飞机大战 × 坦克大战，从 idea 到能玩。</p>
+                </div>
+                <span class="tl-dot"></span>
+                <span class="tl-when">2026.08</span>
+              </div>
+
+              <!-- 2026.08 个人网站上线 -->
+              <div class="tl-node">
+                <div class="tl-card">
+                  <div class="tl-top">
+                    <div class="tl-icon" style="background:var(--green-d);">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </div>
+                    <span class="tl-type">支线</span>
+                  </div>
+                  <h4>个人网站上线</h4>
+                  <p>暗黑光束版 v1 → 涂鸦风 v2（就是本站），持续迭代中。</p>
+                </div>
+                <span class="tl-dot"></span>
+                <span class="tl-when">2026.08</span>
+              </div>
+
+              <!-- 敬请期待（后） -->
+              <div class="tl-node tl-empty">
+                <div class="tl-card tl-locked">
+                  <span class="lock-ic">🔒</span>
+                  <span class="lock-txt">敬请期待</span>
+                </div>
+                <span class="tl-dot"></span>
+                <span class="tl-when">？？？？</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+          </div>
+<div class="chip-grid rv">
+      <span class="chip c-blue"><b>坐标</b>广西 · 南宁</span>
+      <span class="chip c-yellow"><b>学校</b>南宁职业技术大学</span>
+      <span class="chip c-pink"><b>专业</b>应用泰语</span>
+      <span class="chip c-green"><b>身份</b>2026 准大一</span>
+      <span class="chip c-purple"><b>状态</b>Open to Everything</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AI ==================== -->
+<section class="page" id="page-ai">
+  <div class="wrap">
+    <div class="sec-head rv reveal">
+      <span class="en">AI PLAYGROUND</span>
+      <h2><span class="hl hl-purple">AI 实战区</span></h2>
+      <p class="sec-sub">大模型不是魔法，是我的瑞士军刀。</p>
+    </div>
+
+    <div class="proj-grid reveal">
+      <div class="proj-card pj-blue rv">
+        <div class="proj-head">
+          <div class="icon-box ib-blue" style="margin-bottom:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>个人简历网站</h3>
+          <span class="proj-status st-live">已上线</span>
+        </div>
+        <p>你正在看的这个站！纯原生 HTML/CSS/JS 单文件、零依赖。上一版是暗黑 WebGL 光束风，这版换成了 Neo-Brutalism 涂鸦风——都是和 AI 一起完成的。</p>
+        <div class="tags">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">WebGL</span><span class="tag">AI 辅助</span>
+        </div>
+      </div>
+
+      <div class="proj-card pj-pink rv" style="transition-delay:80ms" data-link="https://bhfail-feijidazhan.netlify.app/">
+        <div class="proj-head">
+          <div class="icon-box ib-pink" style="margin-bottom:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.152A4 4 0 0 0 17.32 5z"/></svg>
+          </div>
+          <h3>飞机大战</h3>
+          <a class="proj-play-link" href="https://bhfail-feijidazhan.netlify.app/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><span class="proj-status st-play">能玩</span><span class="ext-link" aria-hidden="true">↗</span></a>
+        </div>
+        <p>Canvas 飞行射击小游戏。AI 辅助实现游戏循环、弹幕系统与碰撞检测，键盘操控，手感在线。</p>
+        <div class="tags">
+          <span class="tag">Canvas</span><span class="tag">JavaScript</span><span class="tag">碰撞检测</span><span class="tag">AI 辅助</span>
+        </div>
+      </div>
+
+      <div class="proj-card pj-green rv" style="transition-delay:120ms" data-link="https://langjian-zw-tanke.netlify.app/">
+        <div class="proj-head">
+          <div class="icon-box ib-green" style="margin-bottom:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          </div>
+          <h3>坦克大战</h3>
+          <a class="proj-play-link" href="https://langjian-zw-tanke.netlify.app/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><span class="proj-status st-play">能玩</span><span class="ext-link" aria-hidden="true">↗</span></a>
+        </div>
+        <p>经典坦克对战复刻。AI 帮忙搞定敌方寻路与攻防逻辑，越玩越上头。</p>
+        <div class="tags">
+          <span class="tag">Canvas</span><span class="tag">JavaScript</span><span class="tag">敌方 AI</span><span class="tag">AI 辅助</span>
+        </div>
+      </div>
+
+      <div class="proj-card pj-yellow rv" style="transition-delay:160ms">
+        <div class="proj-head">
+          <div class="icon-box ib-yellow" style="margin-bottom:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          </div>
+          <h3>AI 音乐创作</h3>
+          <span class="proj-status st-play">已发布</span>
+        </div>
+        <p>用 AI 音乐工具搞创作，探索 AI 在创意领域的可能性。首发单曲已上线～</p>
+
+        <div class="music-list-container">
+          <!-- 第一首歌 -->
+          <div class="music-item" id="song-1">
+            <span class="song-name">01. 轻拿轻放</span>
+            <div class="song-actions">
+              <a href="https://www.haimian.com/share/5jOrwoyyyP" target="_blank" rel="noopener noreferrer" class="link-icon" title="在外部打开">🔗</a>
+              <span class="play-icon" id="icon-song-1" onclick="toggleMusic(event, './assets/qingna.mp4', 'song-1')">▶</span>
+            </div>
+          </div>
+          <!-- 第二首歌：占位（无音频文件，纯展示，滚轮自动跳过） -->
+          <div class="music-item placeholder" id="song-2">
+            <span class="song-name">—— 待发布 ——</span>
+          </div>
+        </div>
+
+        <p class="song-hint">↑↓ 滚轮切换高亮 · 点 ▶ 播放此歌曲</p>
+
+        <div class="tags">
+          <span class="tag">AI Music</span><span class="tag">海绵音乐</span><span class="tag">创意 AI</span><span class="tag">作品集</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="skill-panel rv">
+      <h3>AI 技能树</h3>
+      <p class="sp-sub">熟练度持续加点中……</p>
+      <div class="skill">
+        <div class="skill-top"><span>AI 大模型使用</span><span>90%</span></div>
+        <div class="bar" style="--c:#5B8DEF;--w:90%"><i></i></div>
+      </div>
+      <div class="skill">
+        <div class="skill-top"><span>AI 工具流</span><span>85%</span></div>
+        <div class="bar" style="--c:#F15BB5;--w:85%"><i></i></div>
+      </div>
+      <div class="skill">
+        <div class="skill-top"><span>AI 辅助编程</span><span>80%</span></div>
+        <div class="bar" style="--c:#7ED957;--w:80%"><i></i></div>
+      </div>
+      <div class="skill">
+        <div class="skill-top"><span>AI 游戏开发</span><span>75%</span></div>
+        <div class="bar" style="--c:#B494F5;--w:75%"><i></i></div>
+      </div>
+      <div class="skill">
+        <div class="skill-top"><span>AI 音乐创作</span><span>70%</span></div>
+        <div class="bar" style="--c:#FF9F43;--w:70%"><i></i></div>
+      </div>
+    </div>
+
+    <!-- ============ AI 证书展示模块 ============ -->
+    <div class="cert-module reveal" id="certModule">
+      <div class="sec-head" id="ai">
+        <span class="en">AI CERTIFICATES</span>
+        <h2>我的 <span class="hl hl-blue">AI 证书</span></h2>
+        <p class="sec-sub">15 张证书，按颁发机构分类展示 —— 点缩略图看大图。</p>
+      </div>
+      <div class="cert-tabs" id="certTabs" role="tablist"></div>
+      <div class="cert-toolbar">
+        <span class="cert-state" id="certState">已收起 · 点「展开」查看全部证书</span>
+        <button class="cert-toggle" id="certToggle" type="button" aria-expanded="false">展开 ▾</button>
+      </div>
+      <div class="cert-stage" id="certStage">
+        <div class="cert-stack">
+          <button class="cert-stack-card" id="certStackCard" type="button" aria-label="查看叠放中的证书">
+            <span class="cert-stack-inner">
+              <span class="cert-thumb"><img id="certStackImg" src="" alt="" data-cat="" onerror="certImgError(this)"></span>
+              <span class="cert-meta"><span class="cert-org" id="certStackOrg"></span><span class="cert-note" id="certStackNote"></span></span>
+            </span>
+          </button>
+        </div>
+        <div class="cert-divider" aria-hidden="true"></div>
+        <div class="cert-display" id="certDisplay">
+          <div class="cert-list" id="certGrid"></div>
+          <!-- 移动端左右翻页按钮：仅在 <768px 显示 -->
+          <div class="cert-nav" id="certNav">
+            <button class="cert-nav-btn" id="certPrevBtn" type="button" aria-label="上一页证书">‹ 上一页</button>
+            <button class="cert-nav-btn" id="certNextBtn" type="button" aria-label="下一页证书">下一页 ›</button>
+          </div>
+        </div>
+      </div>
+      <p class="cert-hint">↑ 点 Tab 切换机构 · 滚轮在证书区左右滑动 · 点证书看大图 · ESC / 点遮罩关闭</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PPT 作品展示 ==================== -->
+<section class="page" id="page-ppt">
+  <div class="wrap">
+    <div class="ppt-header rv reveal">
+      <div class="ppt-label">
+        <svg class="ppt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4"/><path d="M3 10h18"/>
+        </svg>
+        <span>PRESENTATION</span>
+        <span class="ppt-sep">//</span>
+        <span>PPT作品展示</span>
+      </div>
+      <h2 class="ppt-title">PPT 作品展示<span class="ppt-dot">。</span></h2>
+    </div>
+
+    <div class="ppt-stage rv reveal">
+      <div class="ppt-track" id="pptTrack">
+
+        <!-- Slide 1 -->
+        <div class="ppt-slide active js-ph">
+          <div class="ppt-bg"></div>
+          <div class="ppt-content" style="align-items:center;text-align:center;">
+            <h3 class="ppt-slide-title plain">作品占位 01</h3>
+            <p class="ppt-slide-sub">第一套 PPT 视觉方案<br>等待你上传真实页面</p>
+            <div class="ppt-badges" style="justify-content:center;">
+              <span>占位</span><span>概念</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2：占位 -->
+        <div class="ppt-slide next js-ph">
+          <div class="ppt-bg ppt-bg-2"></div>
+          <div class="ppt-content" style="align-items:center;text-align:center;">
+            <h3 class="ppt-slide-title plain">作品占位 02</h3>
+            <p class="ppt-slide-sub">第二套 PPT 视觉方案<br>等待你上传真实页面</p>
+            <div class="ppt-badges" style="justify-content:center;">
+              <span>占位</span><span>概念</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3：占位 -->
+        <div class="ppt-slide prev js-ph">
+          <div class="ppt-bg ppt-bg-3"></div>
+          <div class="ppt-content" style="align-items:center;text-align:center;">
+            <h3 class="ppt-slide-title plain">作品占位 03</h3>
+            <p class="ppt-slide-sub">第三套 PPT 视觉方案<br>等待你上传真实页面</p>
+            <div class="ppt-badges" style="justify-content:center;">
+              <span>占位</span><span>概念</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="ppt-controls rv">
+      <div class="ppt-line"></div>
+      <button class="ppt-arrow" id="pptPrev" aria-label="上一张">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="ppt-arrow" id="pptNext" aria-label="下一张">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="ppt-line"></div>
+    </div>
+
+  </div>
+
+  <!-- PPT 占位卡点击提示：从顶部滑入 -->
+  <div id="pptToast" class="ppt-toast" role="status" aria-live="polite">⏳ 作品正在制作中，敬请期待 🚀</div>
+</section>
+
+<!-- ==================== 经历 ==================== -->
+<section class="page" id="page-exp">
+  <div class="wrap">
+    <div class="exp-panel">
+      <!-- 区域大标题 -->
+      <div class="sec-head reveal">
+        <span class="en">EXPERIENCE</span>
+        <h2>📌 经历 / Experience</h2>
+      </div>
+
+      <!-- ① 实习经历 -->
+      <div class="exp-group reveal">
+        <h3 class="exp-h">💼 实习经历</h3>
+        <div class="exp-ph-list">
+          <div class="exp-ph">即将上线 ⏳</div>
+        </div>
+      </div>
+
+      <!-- ② 项目经历 -->
+      <div class="exp-group reveal">
+        <h3 class="exp-h">🛠️ 项目经历</h3>
+        <div class="exp-ph-list">
+          <div class="exp-ph">即将上线 ⏳</div>
+        </div>
+      </div>
+
+      <!-- ③ 比赛经历 -->
+      <div class="exp-group reveal">
+        <h3 class="exp-h">🏆 比赛经历</h3>
+        <div class="exp-ph-list">
+          <div class="exp-ph">即将上线 ⏳</div>
+        </div>
+      </div>
+
+      <!-- ④ 证书 / 荣誉（横向网格） -->
+      <div class="exp-group reveal">
+        <h3 class="exp-h">📜 证书 / 荣誉</h3>
+        <div class="exp-ph-grid">
+          <a class="cert-ai-card" href="index-neo.html#ai">
+            <span class="cert-ai-title">📜 AI 证书 × 15</span>
+            <span class="cert-ai-sub">点击查看详情 →</span>
+          </a>
+          <div class="exp-ph">即将上线 ⏳</div>
+        </div>
+      </div>
+
+      <!-- 过渡文案 -->
+      <p class="exp-transition reveal">看完我的经历，轮到你了 👇</p>
+
+      <!-- 互动留言板：委托箱 + 脑洞池 -->
+      <div class="board reveal">
+        <div class="board-head">
+          <h3 class="board-title">🎯 9月解锁之前，你先来定</h3>
+          <p class="board-sub">内容我做主？不，你来定。留下你的想法，我挑一个做成真的。</p>
+        </div>
+
+        <div class="board-tabs" role="tablist">
+          <button type="button" class="board-tab active" data-mode="task" role="tab" aria-selected="true">📋 派活儿给我</button>
+          <button type="button" class="board-tab" data-mode="idea" role="tab" aria-selected="false">💡 脑洞许愿池</button>
+        </div>
+
+        <form class="board-form" id="boardForm" novalidate>
+          <div class="board-fields" data-mode="task">
+            <label class="board-label" for="taskText">你想让我帮你做什么？<span class="req">*</span></label>
+            <textarea class="board-input" id="taskText" rows="3" placeholder="例如：帮我用 AI 做一份简历排版…"></textarea>
+            <label class="board-label" for="taskSkill">涉及技能（选填）</label>
+            <select class="board-select" id="taskSkill">
+              <option value="">— 请选择 —</option>
+              <option>AI</option>
+              <option>PPT</option>
+              <option>泰语</option>
+              <option>其他</option>
+            </select>
+          </div>
+
+          <div class="board-fields" data-mode="idea" hidden>
+            <label class="board-label" for="ideaText">你想在我网站上看到什么？<span class="req">*</span></label>
+            <textarea class="board-input" id="ideaText" rows="3" placeholder="例如：一个能抽签决定今天学啥的小工具…"></textarea>
+            <label class="board-label" for="ideaType">脑洞类型（选填）</label>
+            <select class="board-select" id="ideaType">
+              <option value="">— 请选择 —</option>
+              <option>教程</option>
+              <option>游戏</option>
+              <option>工具</option>
+              <option>离谱玩意儿</option>
+            </select>
+          </div>
+
+          <button type="submit" class="board-submit" id="boardSubmit">📬 投递委托</button>
+        </form>
+
+        <div class="board-list" id="boardList"></div>
+        <button type="button" class="board-more" id="boardMore" hidden>展开更多 ↓</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="f-name">曾伟的世界</div>
+  <div class="f-sub">© 2026 · 最后更新 2026.08.15 · 本站由 曾伟 × AI 联合出品</div>
+</footer>
+
+<div class="toast" id="toast">邮箱已复制到剪贴板</div>
+
+<!-- ==================== AI 证书 · 全屏灯箱 ==================== -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lbClose" aria-label="关闭">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="上一张">‹</button>
+  <figure class="lb-figure">
+    <img class="lb-img" id="lbImg" src="" alt="" data-cat="" onerror="certImgError(this)">
+    <figcaption class="lb-cap" id="lbCap"></figcaption>
+  </figure>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="下一张">›</button>
+</div>
+
+<!-- ==================== 经历页：提交成功模态弹窗 ==================== -->
+<div class="exp-modal-mask" id="expModalMask" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="exp-modal">
+    <div class="exp-modal-emoji" id="expModalEmoji">✅</div>
+    <div class="exp-modal-text" id="expModalText"></div>
+    <button type="button" class="exp-modal-btn" id="expModalBtn">👌 好的</button>
+  </div>
+</div>
+
+<script>
+/* ==================== 分页切换（含 hash 同步） ==================== */
+(function () {
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.nav-item'));
+  var valid = ['home', 'about', 'ai', 'ppt', 'exp'];
+
+  /* 自我介绍打字机：进入关于我页时逐字打出 */
+  function typeAbout() {
+    var el = document.querySelector('#page-about .px-about');
+    if (!el) return;
+    var full = el.getAttribute('data-text') || el.textContent;
+    if (!el.getAttribute('data-text')) el.setAttribute('data-text', full);
+    clearInterval(el._tw);
+    el.textContent = '';
+    el.classList.add('typing');
+    var i = 0;
+    el._tw = setInterval(function () {
+      i++;
+      el.textContent = full.slice(0, i);
+      if (i >= full.length) { clearInterval(el._tw); el.classList.remove('typing'); }
+    }, 55);
+  }
+
+  function go(name, push) {
+    if (valid.indexOf(name) === -1) name = 'home';
+    btns.forEach(function (b) { b.classList.toggle('active', b.dataset.page === name); });
+    document.querySelectorAll('.page').forEach(function (p) {
+      p.classList.toggle('active', p.id === 'page-' + name);
+    });
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    if (push !== false && location.hash !== '#' + name) {
+      history.replaceState(null, '', '#' + name);
+    }
+    /* 进入关于我：重置进场动画，制造逐块解锁的复现感 */
+    if (name === 'about') {
+      aboutSeq.forEach(function (el) { el.classList.remove('on'); el.style.transitionDelay = ''; });
+      typeAbout();
+    }
+    requestAnimationFrame(observeReveals);
+    requestAnimationFrame(revealActive);
+  }
+
+  var navContainer = document.querySelector('.nav-container');
+  /* 点击任意导航项 → 整个药丸容器抖动；动画结束自动移除类 */
+  function shakeNav() {
+    if (!navContainer) return;
+    navContainer.classList.remove('shaking');
+    void navContainer.offsetWidth;            // 强制回流，允许连续点击重播动画
+    navContainer.classList.add('shaking');
+  }
+  if (navContainer) {
+    navContainer.addEventListener('animationend', function (e) {
+      if (e.animationName === 'soft-shake') navContainer.classList.remove('shaking');
+    });
+  }
+
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () { go(b.dataset.page); shakeNav(); });
+  });
+  /* 笑脸（复制邮箱）点击时也让整个导航药丸抖一下 */
+  var smileEl = document.getElementById('smileBtn');
+  if (smileEl) smileEl.addEventListener('click', shakeNav);
+
+  /* 经历页「AI 证书」卡片：切换到 AI 页并平滑滚动到 #ai（避免整页重载 + 固定导航遮挡） */
+  var certJump = document.querySelector('.cert-ai-card');
+  if (certJump) {
+    certJump.addEventListener('click', function (e) {
+      e.preventDefault();
+      go('ai');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          var el = document.getElementById('ai');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    });
+  }
+
+  window.addEventListener('hashchange', function () {
+    go(location.hash.slice(1), false);
+  });
+
+  /* 横竖屏切换后自动回到顶部，防止滚动位置错乱 */
+  window.addEventListener('orientationchange', function () {
+    setTimeout(function () { window.scrollTo(0, 0); }, 100);
+  });
+
+  /* ==================== 邮箱复制（防爬虫拼接） ==================== */
+  function getEmail() { return '3411561983' + '@' + 'qq.com'; }
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._t);
+    t._t = setTimeout(function () { t.classList.remove('show'); }, 2000);
+  }
+  function copyEmail() {
+    var email = getEmail();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(function () {
+        showToast('邮箱已复制到剪贴板');
+      }).catch(function () { fallbackCopy(email); });
+    } else {
+      fallbackCopy(email);
+    }
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('邮箱已复制到剪贴板'); }
+    catch (e) { showToast('复制失败，请手动复制'); }
+    document.body.removeChild(ta);
+  }
+  var emailBtn = document.getElementById('emailBtn');
+  if (emailBtn) emailBtn.addEventListener('click', copyEmail);
+  document.getElementById('smileBtn').addEventListener('click', copyEmail);
+
+  /* ==================== 首页 Hero：打字机 + 标题互动 + ID 卡互动 ==================== */
+  (function () {
+    var welcome = document.getElementById('welcomeText');
+    var reveal = document.getElementById('heroReveal');
+    var WELCOME = 'Welcome to';
+    function revealHero() { if (reveal) reveal.classList.add('is-in'); }
+    if (welcome && welcome.textContent.trim() === WELCOME) {
+      welcome.textContent = '';
+      var wi = 0;
+      var typer = setInterval(function () {
+        welcome.textContent += WELCOME.charAt(wi++);
+        if (wi >= WELCOME.length) { clearInterval(typer); setTimeout(revealHero, 280); }
+      }, 78);
+    } else {
+      revealHero();
+    }
+
+    var title = document.querySelector('.hero h1 .hl-blue');
+    if (title) {
+      title.style.cursor = 'pointer';
+      title.addEventListener('click', function () {
+        title.classList.remove('bounce');
+        void title.offsetWidth; /* 重排以重启动画 */
+        title.classList.add('bounce');
+      });
+      title.addEventListener('animationend', function (e) {
+        if (e.animationName === 'titleBounce') title.classList.remove('bounce');
+      });
+    }
+  })();
+
+  /* ID 卡：字段点击提示 + 双击翻面 */
+  (function () {
+    var fields = document.querySelectorAll('.idcard .field div[data-toast]');
+    fields.forEach(function (f) {
+      f.setAttribute('role', 'button');
+      f.setAttribute('tabindex', '0');
+      f.addEventListener('click', function () { showToast(f.getAttribute('data-toast')); });
+      f.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showToast(f.getAttribute('data-toast')); }
+      });
+    });
+    var idcard = document.getElementById('idcard');
+    if (idcard) idcard.addEventListener('dblclick', function () {
+      var flipped = idcard.classList.toggle('flipped');
+      var backs = idcard.querySelectorAll('.back-section.reveal');
+      backs.forEach(function (el, i) {
+        el.classList.remove('active');
+        el.style.transitionDelay = (i * 0.1) + 's';
+        if (flipped) { void el.offsetWidth; el.classList.add('active'); }
+      });
+    });
+    // 技能/爱好标签：悬浮高亮 + 点击选中（再次点击取消），与翻面互不冲突
+    var tags = document.querySelectorAll('#idcard .bt');
+    tags.forEach(function (t) {
+      t.setAttribute('role', 'button');
+      t.setAttribute('tabindex', '0');
+      t.addEventListener('click', function (e) { e.stopPropagation(); t.classList.toggle('bt-active'); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); t.classList.toggle('bt-active'); }
+      });
+      // 双击标签时不冒泡，避免连带触发整卡翻面
+      t.addEventListener('dblclick', function (e) { e.stopPropagation(); });
+    });
+  })();
+
+  /* ==================== 经历页：互动留言板（委托箱 + 脑洞池） ==================== */
+  (function () {
+    var form = document.getElementById('boardForm');
+    if (!form) return;
+    var tabs = document.querySelectorAll('.board-tab');
+    var fieldsTask = document.querySelector('.board-fields[data-mode="task"]');
+    var fieldsIdea = document.querySelector('.board-fields[data-mode="idea"]');
+    var submitBtn = document.getElementById('boardSubmit');
+    var listEl = document.getElementById('boardList');
+    var moreBtn = document.getElementById('boardMore');
+    var KEY = 'zw_exp_board';
+    var mode = 'task';
+    var expanded = false;
+
+    var POP = ['var(--yellow)', 'var(--blue)', 'var(--green)', 'var(--magenta)'];
+    function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+    function save(arr) { try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch (e) {} }
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function fmtTime(ts) {
+      var d = new Date(ts);
+      return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+    }
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+
+    function render() {
+      var arr = load().slice().sort(function (a, b) { return b.ts - a.ts; });
+      listEl.innerHTML = '';
+      if (!arr.length) {
+        var empty = document.createElement('div');
+        empty.className = 'board-empty';
+        empty.textContent = '还没有人投递过～做个第一个吃螃蟹的人吧 🦀';
+        listEl.appendChild(empty);
+        moreBtn.hidden = true;
+        return;
+      }
+      var show = expanded ? arr : arr.slice(0, 5);
+      show.forEach(function (rec) {
+        var card = document.createElement('div');
+        card.className = 'board-card';
+        card.style.background = rec.color || 'var(--yellow)';
+        card.style.transform = 'rotate(' + (rec.rot || 0) + 'deg)';
+        var tag = document.createElement('span');
+        tag.className = 'bc-tag';
+        tag.textContent = rec.option || '未指定';
+        var txt = document.createElement('span');
+        txt.className = 'bc-text';
+        txt.textContent = '— ' + rec.content;
+        var time = document.createElement('span');
+        time.className = 'bc-time';
+        time.textContent = fmtTime(rec.ts);
+        card.appendChild(tag);
+        card.appendChild(txt);
+        card.appendChild(time);
+        listEl.appendChild(card);
+      });
+      moreBtn.hidden = arr.length <= 5;
+      moreBtn.textContent = expanded ? '收起 ↑' : '展开更多 ↓';
+    }
+
+    function setMode(m) {
+      mode = m;
+      tabs.forEach(function (t) {
+        var on = t.dataset.mode === m;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      fieldsTask.hidden = m !== 'task';
+      fieldsIdea.hidden = m !== 'idea';
+      submitBtn.textContent = m === 'task' ? '📬 投递委托' : '🪄 投递脑洞';
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { setMode(t.dataset.mode); }); });
+    moreBtn.addEventListener('click', function () { expanded = !expanded; render(); });
+
+    /* —— 提交成功模态弹窗 —— */
+    var mask = document.getElementById('expModalMask');
+    var modalText = document.getElementById('expModalText');
+    var modalEmoji = document.getElementById('expModalEmoji');
+    var modalBtn = document.getElementById('expModalBtn');
+    function showModal(emoji, text, btnLabel) {
+      modalEmoji.textContent = emoji;
+      modalText.textContent = text;
+      modalBtn.textContent = btnLabel || '👌 好的';
+      mask.classList.add('show');
+      mask.setAttribute('aria-hidden', 'false');
+    }
+    function closeModal() { mask.classList.remove('show'); mask.setAttribute('aria-hidden', 'true'); }
+    modalBtn.addEventListener('click', closeModal);
+    mask.addEventListener('click', function (e) { if (e.target === mask) closeModal(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mask.classList.contains('show')) closeModal();
+    });
+
+    submitBtn.addEventListener('animationend', function () { submitBtn.classList.remove('shake'); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var textEl = mode === 'task' ? document.getElementById('taskText') : document.getElementById('ideaText');
+      var optEl = mode === 'task' ? document.getElementById('taskSkill') : document.getElementById('ideaType');
+      var content = textEl.value.trim();
+      /* 空内容：按钮左右抖动，不弹窗 */
+      if (!content) {
+        submitBtn.classList.remove('shake');
+        void submitBtn.offsetWidth;
+        submitBtn.classList.add('shake');
+        textEl.focus();
+        return;
+      }
+      var arr = load();
+      /* 重复检测：同模式 + 同内容（忽略大小写与首尾空格） */
+      var dup = arr.some(function (r) {
+        return r.mode === mode && r.content.trim().toLowerCase() === content.toLowerCase();
+      });
+      if (dup) {
+        showModal('🤔', '这条你已经说过了，换个想法？', '👌 好的');
+        return;
+      }
+      arr.push({
+        mode: mode,
+        content: content,
+        option: optEl.value || '未指定',
+        ts: Date.now(),
+        color: POP[Math.floor(Math.random() * POP.length)],
+        rot: Math.round(rnd(-2, 2) * 10) / 10
+      });
+      save(arr);
+      expanded = false;
+      render();
+      textEl.value = '';
+      optEl.value = '';
+      if (mode === 'task') {
+        showModal('✅', '委托收到！\n你的委托已存入我的“待办箱”\n9月解锁时，看看有没有人要我帮他实现！', '👌 好的');
+      } else {
+        showModal('🎯', '脑洞已投喂！\n你的想法让我很有灵感，\n说不定9月你就看到它了！', '😎 等着看');
+      }
+    });
+
+    render();
+  })();
+
+  /* ==================== 关于我：交互（标题/语录/MBTI翻转） ==================== */
+  (function () {
+    /* 标题"我"：点击弹跳 + 提示 */
+    var meChar = document.getElementById('aboutMeChar');
+    if (meChar) {
+      meChar.addEventListener('click', function () {
+        meChar.classList.remove('pop');
+        void meChar.offsetWidth; /* 强制重排，重启动画 */
+        meChar.classList.add('pop');
+        showToast('被你发现了！😎');
+      });
+      meChar.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); meChar.click(); }
+      });
+      meChar.addEventListener('animationend', function () { meChar.classList.remove('pop'); });
+    }
+    /* 语录卡片：点击文字闪烁变色 */
+    var stmt = document.getElementById('stmtCard');
+    if (stmt) {
+      var flashStmt = function () {
+        stmt.classList.remove('flash');
+        void stmt.offsetWidth;
+        stmt.classList.add('flash');
+      };
+      stmt.addEventListener('click', flashStmt);
+      stmt.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flashStmt(); }
+      });
+      stmt.addEventListener('animationend', function (e) {
+        if (e.animationName === 'stmtFlash') stmt.classList.remove('flash');
+      });
+    }
+    /* MBTI 四维度：点击翻转显示详情 */
+    document.querySelectorAll('#page-about .mbti-stat').forEach(function (card) {
+      card.addEventListener('click', function () { card.classList.toggle('flipped'); });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); }
+      });
+    });
+  })();
+
+
+  /* ==================== 滚动显现 + 技能条 ==================== */
+  var aboutSeq = Array.prototype.slice.call(document.querySelectorAll('#page-about .rv-seq'));
+  var io = null;
+  if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          /* ④ 关于我板块：STATEMENT → MBTI → HOBBIES → TAGS 依次淡入 */
+          if (en.target.classList.contains('rv-seq')) {
+            var idx = aboutSeq.indexOf(en.target);
+            if (idx > -1) {
+              en.target.style.transitionDelay = (idx * 0.15) + 's';
+              (function (el, d) { setTimeout(function () { el.style.transitionDelay = ''; }, 700 + d); })(en.target, idx * 150);
+            }
+          }
+          en.target.classList.add('on');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.15 });
+  }
+
+  function observeReveals() {
+    var els = document.querySelectorAll('.page.active .rv:not(.on), .page.active .bar:not(.on)');
+    els.forEach(function (el) {
+      if (io) io.observe(el);
+      else el.classList.add('on');
+    });
+  }
+
+  /* ==================== 滚动渐显 .reveal（IntersectionObserver + 翻页触发） ==================== */
+  var revealObserver = null;
+  if ('IntersectionObserver' in window) {
+    revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('active');
+          revealObserver.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  }
+  /* 当前激活页的 .reveal 区块依次渐显（翻页 / 初次进入时调用），0.1s 阶梯延迟 */
+  function revealActive() {
+    var page = document.querySelector('.page.active');
+    if (!page) return;
+    var blocks = page.querySelectorAll('.reveal');
+    blocks.forEach(function (el) { el.classList.remove('active'); });
+    void page.offsetWidth; /* 强制回流，确保复位已绘制，过渡可重放 */
+    blocks.forEach(function (el, i) {
+      el.style.transitionDelay = (i * 0.1) + 's';
+      el.classList.add('active');
+    });
+  }
+  /* 监听全部 .reveal，进入视口即渐显（兼容长页面滚动 & 翻面后内容） */
+  function observeRevealsAll() {
+    if (revealObserver) {
+      document.querySelectorAll('.reveal:not(.active)').forEach(function (el) { revealObserver.observe(el); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('active'); });
+    }
+  }
+
+  /* ==================== PPT 轮播占位 ==================== */
+  (function () {
+    var track = document.getElementById('pptTrack');
+    if (!track) return;
+    var slides = Array.prototype.slice.call(track.querySelectorAll('.ppt-slide'));
+    if (!slides.length) return;
+    var current = 0;
+
+    function update() {
+      slides.forEach(function (s, i) {
+        s.classList.remove('active', 'prev', 'next');
+        if (i === current) s.classList.add('active');
+        else if (i === (current - 1 + slides.length) % slides.length) s.classList.add('prev');
+        else if (i === (current + 1) % slides.length) s.classList.add('next');
+      });
+    }
+
+    var prevBtn = document.getElementById('pptPrev');
+    var nextBtn = document.getElementById('pptNext');
+    if (prevBtn) prevBtn.addEventListener('click', function () { current = (current - 1 + slides.length) % slides.length; update(); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { current = (current + 1) % slides.length; update(); });
+
+    update();
+  })();
+
+  /* ==================== 时间线：横向拖动 + 滚轮 + 悬停跟随滑动 ==================== */
+  function initDragScroll(track) {
+    var down = false, startX = 0, startLeft = 0, moved = false;
+    /* 悬停跟随滑动状态 */
+    var hovering = false, vel = 0, raf = 0, MAX_SPEED = 12; /* 边缘最大速度 px/帧 @60fps */
+
+    /* rAF 循环：根据当前速度平滑滚动 */
+    function tick() {
+      if (!hovering) { raf = 0; return; }
+      if (!down && vel !== 0) {
+        var max = track.scrollWidth - track.clientWidth;
+        var next = track.scrollLeft + vel;
+        if (next <= 0) track.scrollLeft = 0;
+        else if (next >= max) track.scrollLeft = max;
+        else track.scrollLeft = next;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    function startHover() { if (!raf) raf = requestAnimationFrame(tick); }
+    function stopHover() { hovering = false; vel = 0; if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+
+    /* 鼠标在容器内移动 → 计算到中心的偏移 → 速度正比于距离 */
+    track.addEventListener('mousemove', function (e) {
+      if (down) return; /* 拖拽时让位给拖动逻辑 */
+      var rect = track.getBoundingClientRect();
+      var offset = e.clientX - rect.left - rect.width / 2; /* 右正 左负 */
+      var ratio = offset / (rect.width / 2);
+      if (ratio > 1) ratio = 1; else if (ratio < -1) ratio = -1;
+      vel = ratio * MAX_SPEED;
+      hovering = true;
+      startHover();
+    });
+    /* 鼠标移出容器 → 立即停止 */
+    track.addEventListener('mouseleave', stopHover);
+
+    /* 拖拽滚动 */
+    track.addEventListener('mousedown', function (e) {
+      down = true; moved = false; startX = e.pageX; startLeft = track.scrollLeft;
+      track.classList.add('dragging');
+    });
+    window.addEventListener('mousemove', function (e) {
+      if (!down) return;
+      var dx = e.pageX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      track.scrollLeft = startLeft - dx;
+    });
+    window.addEventListener('mouseup', function () {
+      down = false; track.classList.remove('dragging');
+      vel = 0; /* 松手后不要再继续跟随 */
+    });
+    track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    /* 拖动结束不要误触卡片点击 */
+    track.addEventListener('click', function (e) {
+      if (moved) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+  }
+  document.querySelectorAll('.tl-track').forEach(initDragScroll);
+
+  /* ==================== 项目卡片：点击跳转外部链接 ==================== */
+  document.querySelectorAll('.proj-card[data-link]').forEach(function (card) {
+    var url = card.getAttribute('data-link');
+    card.addEventListener('click', function () { window.open(url, '_blank'); });
+    /* 键盘可达性：Enter / 空格 也能打开 */
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'link');
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.open(url, '_blank'); }
+    });
+  });
+
+  /* ==================== AI 音乐创作 · 歌曲列表（滚轮切高亮 + 点击播放） ==================== */
+  (function () {
+    var audioPlayer = null;          // 懒加载（<video> 在脚本之后解析）
+    function getPlayer() {
+      if (!audioPlayer) audioPlayer = document.getElementById('global-player');
+      return audioPlayer;
+    }
+
+    // 仅“可播放”的歌单（占位项不放入，滚轮自动跳过）
+    var songs = [
+      { id: 'song-1', url: './assets/qingna.mp4', name: '轻拿轻放', link: 'https://www.haimian.com/share/5jOrwoyyyP' }
+    ];
+    var selectedIndex = 0;           // 当前高亮项（仅视觉，不控制播放）
+    var playingId = null;            // 真正在播放的歌（仅点击触发）
+
+    function getIcon(songId) { return document.getElementById('icon-' + songId); }
+    function itemOf(ic) {
+      if (!ic) return null;
+      return ic.closest ? ic.closest('.music-item') : (ic.parentElement ? ic.parentElement.parentElement : null);
+    }
+    function resetIcon(songId) {
+      var ic = getIcon(songId);
+      if (ic) {
+        ic.innerText = '▶'; ic.style.color = 'black';           // 复位为播放箭头、黑色
+        var it = itemOf(ic); if (it) it.classList.remove('playing');
+      }
+    }
+    function setPlayingIcon(songId) {
+      var ic = getIcon(songId);
+      if (ic) {
+        ic.innerText = '⏸'; ic.style.color = 'red';             // 播放中：暂停符 + 红色
+        var it = itemOf(ic); if (it) it.classList.add('playing');
+      }
+    }
+    // 仅切换高亮样式，绝不触发播放 / 暂停
+    function setSelected(idx) {
+      songs.forEach(function (s) {
+        var el = document.getElementById(s.id);
+        if (el) el.classList.remove('selected');
+      });
+      var el = document.getElementById(songs[idx].id);
+      if (el) el.classList.add('selected');
+      selectedIndex = idx;
+    }
+    function errPlay(e) { console.error('播放失败:', e); alert('路径错误或浏览器拦截，无法播放'); }
+
+    // 暴露给内联 onclick：只有点击播放按钮才触发播放 / 暂停
+    window.toggleMusic = function (event, songUrl, songId) {
+      if (event && event.stopPropagation) event.stopPropagation();   // 阻止冒泡
+      var player = getPlayer();
+      if (!player) { console.error('未找到全局播放器 #global-player'); return; }
+      var idx = -1;
+      for (var i = 0; i < songs.length; i++) { if (songs[i].id === songId) { idx = i; break; } }
+      if (idx === -1) return;                                      // 非歌单条目（占位项无此调用）
+
+      // 情况 1：点击的就是当前正在播放的歌 -> 暂停 / 继续
+      if (playingId === songId) {
+        if (player.paused) {
+          player.play().catch(errPlay);
+          setPlayingIcon(songId);
+        } else {
+          player.pause();
+          resetIcon(songId);
+        }
+        return;
+      }
+      // 情况 2：其他可播放歌 -> 切歌并播放
+      if (playingId) resetIcon(playingId);
+      player.pause();                                              // 重置
+      player.src = songUrl;
+      setSelected(idx);                                           // 同步高亮
+      console.log('正在尝试播放...', songUrl);
+      player.play().catch(errPlay);
+      playingId = songId;
+      setPlayingIcon(songId);
+      player.onended = function () { resetIcon(songId); playingId = null; };   // 自然结束复位
+    };
+
+    // 滚轮：只切高亮，不播放（占位项不在 songs 中，天然跳过）
+    var musicList = document.querySelector('.music-list-container');
+    if (musicList) {
+      var wheelLock = false;
+      musicList.addEventListener('wheel', function (e) {
+        e.preventDefault();                                        // 阻止页面滚动
+        if (wheelLock || songs.length < 2) return;                // 仅一首可播时不切（占位项已排除）
+        wheelLock = true;
+        var dir = e.deltaY > 0 ? 1 : -1;                          // 每次滚动只切一首
+        setSelected((selectedIndex + dir + songs.length) % songs.length);
+        setTimeout(function () { wheelLock = false; }, 220);      // 灵敏度：单次滚动只切一首
+      }, { passive: false });
+    }
+
+    setSelected(selectedIndex);     // 初始高亮第一首
+  })();
+
+  /* ==================== AI 证书展示模块（Tab 切换 + 全屏 Lightbox） ==================== */
+  (function () {
+    /* —— 数据：替换为你准备好的文件名与备注 —— */
+    // 每项：{ src: 'assets/certs/真实文件名.jpg', note: '证书备注说明' }
+    var CERTS = {
+      datawhale: { label: '🐳 Datawhale', cls: 'c-blue', items: [
+        { src: 'assets/certs/Datawhale.png', note: '大模型开发工程师认证' },
+        { src: 'assets/certs/Datawhale(2).png', note: 'AI+编程能力认证' },
+        { src: 'assets/certs/Datawhale (3).png', note: 'AI+数据分析能力认证' },
+        { src: 'assets/certs/Datawhale (4).png', note: 'Prompt Engineer 认证' },
+        { src: 'assets/certs/Datawhale (5).png', note: 'Fine-tuning Engineer 认证' },
+        { src: 'assets/certs/Datawhale (6).png', note: 'Agent Engineer 认证' },
+        { src: 'assets/certs/Datawhale (7).png', note: 'LLM Engineer 认证' },
+        { src: 'assets/certs/Datawhale (8).png', note: 'Agent Engineer 认证（蚂蚁百宝箱）' }
+      ]},
+      iflytek: { label: '🎙 科大讯飞', cls: 'c-yellow', items: [
+        { src: 'assets/certs/科大讯飞Ai大学认证证书.png', note: 'Prompt工程师认证' },
+        { src: 'assets/certs/科大讯飞 Ai大学认证证书 (2).png', note: '智能体工程师认证' },
+        { src: 'assets/certs/科大讯飞Ai大学认证证书 (3).png', note: '微调工程师认证' },
+        { src: 'assets/certs/科大讯飞Ai大学认证证书 (4).png', note: 'RAG工程师认证' }
+      ]},
+      huawei: { label: '📱 华为', cls: 'c-green', items: [
+        { src: 'assets/certs/华为人工智能初始微认证.jpeg', note: '人工智能初识微认证' }
+      ]},
+      damo: { label: '☁️ 阿里云达摩院', cls: 'c-purple', items: [
+        { src: 'assets/certs/阿里达摩院 人工智能训练师（初级）-曾伟-20260724.jpg', note: '人工智能训练师（初级）' },
+        { src: 'assets/certs/阿里达摩院 人工智能训练师（高级）-曾伟-20260725.jpg', note: '人工智能训练师（高级）' }
+      ]}
+    };
+    var order = ['datawhale', 'iflytek', 'huawei', 'damo'];
+
+    // 占位图（证书图片未就绪时显示的 Neo-Brutalism 占位）
+    function certPlaceholder(title) {
+      var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='400' height='560'>" +
+        "<rect width='400' height='560' fill='#F6F3EB'/>" +
+        "<rect x='14' y='14' width='372' height='532' fill='#FFFFFF' stroke='#161513' stroke-width='6'/>" +
+        "<rect x='14' y='14' width='372' height='70' fill='#161513'/>" +
+        "<text x='200' y='58' font-family='sans-serif' font-size='26' font-weight='900' fill='#FFDE59' text-anchor='middle'>CERTIFICATE</text>" +
+        "<text x='200' y='250' font-size='80' text-anchor='middle'>📜</text>" +
+        "<text x='200' y='358' font-family='sans-serif' font-size='22' font-weight='900' fill='#161513' text-anchor='middle'>" + title + "</text>" +
+        "<text x='200' y='472' font-family='sans-serif' font-size='15' fill='#4a463f' text-anchor='middle'>占位图 · 待替换真实证书</text>" +
+        "</svg>";
+      return 'data:image/svg+xml,' + encodeURIComponent(svg);
+    }
+    var PH_MAP = {};
+    order.forEach(function (k) { PH_MAP[k] = certPlaceholder(CERTS[k].label); });
+    // 全局：图片加载失败时回退到占位图
+    window.certImgError = function (img) {
+      img.onerror = null;
+      var cat = img.getAttribute('data-cat');
+      if (cat && PH_MAP[cat]) img.src = PH_MAP[cat];
+    };
+
+    var tabsEl = document.getElementById('certTabs');
+    var listEl = document.getElementById('certGrid');            // .cert-list 单行横向滚动容器
+    var stageEl = document.getElementById('certStage');          // .cert-stage 左叠放 + 右展示
+    var stackCard = document.getElementById('certStackCard');    // 左侧叠放预览卡
+    var stackImg = document.getElementById('certStackImg');
+    var stackOrg = document.getElementById('certStackOrg');
+    var stackNote = document.getElementById('certStackNote');
+    if (!tabsEl || !listEl || !stageEl || !stackCard) return;
+    var currentCat = order[0];
+
+    function renderTabs() {
+      tabsEl.innerHTML = order.map(function (k) {
+        var c = CERTS[k];
+        return '<button class="cert-tab ' + c.cls + '" role="tab" data-cat="' + k + '">' +
+          c.label + ' <span class="cnt">' + c.items.length + '张</span></button>';
+      }).join('');
+      tabsEl.querySelector('.cert-tab').classList.add('active');
+    }
+
+    // 左侧叠放预览：展示当前机构第一张证书（即“堆顶”那张）
+    function renderStack(catKey) {
+      var cat = CERTS[catKey];
+      var it = cat.items[0];
+      var src = it.src || PH_MAP[catKey];
+      var note = it.note || '证书 1';
+      stackImg.src = src;
+      stackImg.setAttribute('data-cat', catKey);
+      stackImg.alt = note;
+      stackOrg.textContent = cat.label;
+      stackNote.textContent = note;
+    }
+
+    var expanded = false;
+    var toggleBtn = document.getElementById('certToggle');
+    var stateEl = document.getElementById('certState');
+
+    // 渲染卡片到 .cert-list（flex 单行 + overflow-x:auto 横向滚动；--i 用于错峰滑入）
+    function renderGrid(catKey) {
+      var cat = CERTS[catKey];
+      listEl.innerHTML = cat.items.map(function (it, i) {
+        var src = it.src || PH_MAP[catKey];
+        var note = it.note || ('证书 ' + (i + 1));
+        return '<button class="cert-card" data-cat="' + catKey + '" data-idx="' + i + '" style="--i:' + i + '">' +
+          '<span class="cert-card-inner">' +
+          '<span class="cert-thumb"><img src="' + src + '" alt="' + note + '" loading="lazy" data-cat="' + catKey + '" onerror="certImgError(this)"></span>' +
+          '<span class="cert-meta"><span class="cert-org">' + cat.label + '</span><span class="cert-note">' + note + '</span></span>' +
+          '</span></button>';
+      }).join('');
+      listEl.scrollLeft = 0;
+      updateCertNav();                           // 重渲染后刷新翻页按钮禁用态（回到最左）
+      // 已展开时重渲染：先移除再强制回流，重新触发错峰滑入动画
+      if (expanded) {
+        listEl.classList.remove('go');
+        void listEl.offsetWidth;                 // 强制回流，确保从隐藏态重启过渡
+        listEl.classList.add('go');
+      }
+    }
+
+    // 展开/收起：切换 stage.expanded 与 list.go（纯 CSS transform/opacity 动画）
+    function setExpanded(v) {
+      expanded = v;
+      stageEl.classList.toggle('expanded', v);
+      listEl.classList.toggle('go', v);
+      if (toggleBtn) {
+        toggleBtn.textContent = v ? '收起 ▴' : '展开 ▾';
+        toggleBtn.setAttribute('aria-expanded', v ? 'true' : 'false');
+      }
+      if (stateEl) stateEl.textContent = v ? '已展开 · 横向滑动查看全部，点证书看大图' : '已收起 · 点「展开」查看全部证书';
+      updateCertNav();                           // 展开/收起后刷新翻页按钮禁用态
+    }
+
+    tabsEl.addEventListener('click', function (e) {
+      var btn = e.target.closest('.cert-tab');
+      if (!btn) return;
+      var k = btn.getAttribute('data-cat');
+      currentCat = k;
+      tabsEl.querySelectorAll('.cert-tab').forEach(function (t) {
+        t.classList.toggle('active', t.getAttribute('data-cat') === k);
+      });
+      renderStack(k);
+      renderGrid(k);
+    });
+
+    // —— Lightbox 全屏灯箱（点证书放大 / ESC 缩小） ——
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lbImg');
+    var lbCap = document.getElementById('lbCap');
+    var state = { cat: null, idx: 0 };
+
+    function updateLightbox() {
+      var cat = CERTS[state.cat];
+      var it = cat.items[state.idx];
+      lbImg.src = it.src || PH_MAP[state.cat];
+      lbImg.setAttribute('data-cat', state.cat);
+      lbImg.alt = it.note || '证书';
+      lbCap.textContent = cat.label + '  ·  ' + (it.note || '');
+    }
+    function openLightbox(cat, idx) {
+      state.cat = cat; state.idx = idx;
+      updateLightbox();
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function navLightbox(dir) {
+      var cat = CERTS[state.cat];
+      state.idx = (state.idx + dir + cat.items.length) % cat.items.length;
+      updateLightbox();
+    }
+
+    // 右侧列表：点卡片开灯箱；左侧叠放卡：点开“堆顶”证书
+    listEl.addEventListener('click', function (e) {
+      var card = e.target.closest('.cert-card');
+      if (!card) return;
+      openLightbox(card.getAttribute('data-cat'), parseInt(card.getAttribute('data-idx'), 10));
+    });
+    stackCard.addEventListener('click', function () { openLightbox(currentCat, 0); });
+    if (toggleBtn) toggleBtn.addEventListener('click', function () { setExpanded(!expanded); });
+
+    // —— 滚轮控制右侧列表左右滑动（向上←左，向下→右，带惯性缓动） ——
+    var target = 0, cur = 0, rafId = null;
+    function easeStep() {
+      cur += (target - cur) * 0.18;                 // lerp：越接近目标越慢，形成惯性
+      if (Math.abs(target - cur) < 0.5) { cur = target; rafId = null; }
+      else { rafId = requestAnimationFrame(easeStep); }
+      listEl.scrollLeft = cur;
+    }
+    function startEase() { if (!rafId) rafId = requestAnimationFrame(easeStep); }
+    // 用户用触摸/拖拽原生滚动时，同步 target/cur，避免与 lerp 打架
+    listEl.addEventListener('scroll', function () {
+      if (!rafId) { cur = listEl.scrollLeft; target = listEl.scrollLeft; }
+    });
+    function onWheel(e) {
+      if (!expanded) return;                         // 仅展开时生效
+      e.preventDefault();
+      var delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      var max = listEl.scrollWidth - listEl.clientWidth;
+      target = Math.max(0, Math.min(target + delta, max));
+      startEase();
+    }
+    listEl.addEventListener('wheel', onWheel, { passive: false });
+
+    // —— 移动端左右翻页按钮（<768px 显示）：点一下滑动一个卡片宽度，到两端禁用 ——
+    var prevBtn = document.getElementById('certPrevBtn');
+    var nextBtn = document.getElementById('certNextBtn');
+    function cardStep() {
+      var card = listEl.querySelector('.cert-card');
+      if (!card) return 0;
+      var gap = parseFloat(getComputedStyle(listEl).gap) || 16;
+      return card.getBoundingClientRect().width + gap;   // 单卡宽度 + 间距
+    }
+    function updateCertNav() {
+      if (!prevBtn || !nextBtn) return;
+      var max = listEl.scrollWidth - listEl.clientWidth;
+      prevBtn.disabled = listEl.scrollLeft <= 1;          // 最左：上一页禁用
+      nextBtn.disabled = listEl.scrollLeft >= max - 1;    // 最右：下一页禁用
+    }
+    if (prevBtn) prevBtn.addEventListener('click', function () {
+      listEl.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function () {
+      listEl.scrollBy({ left: cardStep(), behavior: 'smooth' });
+    });
+    listEl.addEventListener('scroll', updateCertNav);     // 滚轮/触摸滑动时也同步禁用态
+
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); navLightbox(-1); });
+    document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); navLightbox(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') navLightbox(-1);
+      else if (e.key === 'ArrowRight') navLightbox(1);
+    });
+
+    renderTabs();
+    renderStack(currentCat);
+    renderGrid(currentCat);
+  })();
+
+  /* ==================== 经历占位卡：点击趣味文字变换（无弹窗，框不变只变字） ==================== */
+  (function () {
+    var PH_TEXT = '即将上线 ⏳';
+    var LINES = [
+      '🚧 正在搬砖，请勿打扰',
+      '👷‍♂️ 老板正在熬夜写代码',
+      '🔨 饼还没画好，再等等',
+      '🏃‍♂️ 正在赶来的路上...',
+      '🤯 别催了别催了，在做了在做了',
+      '💻 代码正在编译中 (99%)...'
+    ];
+    // 文字颜色轮换库：红 / 橙 / 蓝 / 绿 / 紫（每次点击随机一个，框样式不变）
+    var COLORS = ['#ff3b30', '#ff8c00', '#3b82f6', '#22c55e', '#a855f7'];
+    var nodes = document.querySelectorAll('.exp-ph');
+    nodes.forEach(function (el) {
+      if (el.getAttribute('data-ph-init')) return;     // 防重复绑定
+      el.setAttribute('data-ph-init', '1');
+      var timer = null;
+      function restore() {
+        if (timer) { clearTimeout(timer); timer = null; }
+        el.classList.remove('clicked-shake');
+        el.style.color = '';                           // 还原为默认灰字
+        el.textContent = PH_TEXT;
+      }
+      el.addEventListener('click', function () {
+        if (el.classList.contains('clicked-shake')) { restore(); return; }  // 再次点击立即恢复
+        el.textContent = LINES[Math.floor(Math.random() * LINES.length)];   // 随机催更语录
+        el.style.color = COLORS[Math.floor(Math.random() * COLORS.length)]; // 随机颜色（只变文字）
+        el.classList.remove('clicked-shake');
+        void el.offsetWidth;                          // 强制回流，确保震动可重播
+        el.classList.add('clicked-shake');            // 加粗 + shake-text 动画（框不变）
+        timer = setTimeout(restore, 2000);            // 2 秒后自动恢复
+      });
+    });
+  })();
+
+  /* ==================== 经历小标签：点击飘弹幕 ==================== */
+  (function () {
+    var DAN = [
+      '正在加班加点做 🛠️',
+      '别催了别催了，在做了在做了 😅',
+      '马上更新，敬请期待 🚀',
+      '内容准备中，稍等哈 ⏳',
+      '摸鱼结束，马上开工 🐟',
+      '灵感正在路上狂奔 💡'
+    ];
+    var labels = document.querySelectorAll('.exp-h');
+    labels.forEach(function (el) {
+      if (el.getAttribute('data-exp-label')) return;
+      el.setAttribute('data-exp-label', '1');
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', function () {
+        var d = document.createElement('div');
+        d.className = 'danmaku';
+        d.textContent = DAN[Math.floor(Math.random() * DAN.length)];   // 随机一条提示语
+        d.style.top = (70 + Math.floor(Math.random() * 70)) + 'px';    // 顶部偏下错位，避免完全重叠
+        document.body.appendChild(d);
+        setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 3100);  // 3 秒后移除
+      });
+    });
+  })();
+
+  /* ==================== 经历大标题：点击抖动 + 颜色闪烁 ==================== */
+  (function () {
+    var title = document.querySelector('#page-exp .sec-head h2');
+    if (!title) return;
+    var FLASH = ['#ff3b30', '#ff8c00', '#3b82f6', '#22c55e', '#a855f7'];
+    var fi = 0;
+    title.style.cursor = 'pointer';
+    title.addEventListener('click', function () {
+      title.classList.remove('exp-title-shake');
+      void title.offsetWidth;                         // 强制回流，支持连点重播
+      title.classList.add('exp-title-shake');         // 抖动 + 缩放 pop
+      title.style.color = FLASH[fi % FLASH.length];   // 颜色闪烁一次
+      fi++;
+      title.addEventListener('animationend', function handler(e) {
+        if (e.animationName === 'exp-title-pop') {
+          title.style.color = '';                     // 动画结束复位颜色
+          title.classList.remove('exp-title-shake');
+          title.removeEventListener('animationend', handler);
+        }
+      });
+    });
+  })();
+
+
+  /* ==================== PPT 占位卡：点击顶部滑入提示 ==================== */
+  (function () {
+    var toast = document.getElementById('pptToast');
+    if (!toast) return;
+    var busy = false;          // 防重复触发：上一个未消失前不叠加
+    var hideTimer = null, resetTimer = null;
+    function showPptToast() {
+      if (busy) return;
+      busy = true;
+      toast.classList.add('show');                       // 滑入（-60px → 30px）
+      hideTimer = setTimeout(function () {
+        toast.classList.remove('show');                  // 停留 2s 后滑出
+        resetTimer = setTimeout(function () { busy = false; }, 600); // 滑出动画结束后解锁
+      }, 2000);
+    }
+    // 占位卡整卡可点（含内部“占位/概念”徽标，点击冒泡到此只触发一次）
+    var phSlides = document.querySelectorAll('#page-ppt .ppt-slide.js-ph');
+    phSlides.forEach(function (el) {
+      el.addEventListener('click', showPptToast);
+    });
+  })();
+
+  /* ==================== 启动 ==================== */
+  go(location.hash.slice(1) || 'home', false);
+  observeReveals();
+  observeRevealsAll();
+})();
+
+</script>
+
+  <video id="global-player" style="display:none;" playsinline webkit-playsinline></video>
+</body>
+</html>
+
